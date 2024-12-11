@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "104309120851",
+    "project_id": "cold-storage-97239",
+    "storage_bucket": "cold-storage-97239.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:104309120851:android:a036fdcb281cd4e5780ba6",
+        "android_client_info": {
+          "package_name": "com.cold_storage.cold_storage"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTR75mhMgygxuEp7fpHiK3Ui7Gm7ISjBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

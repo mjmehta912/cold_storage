@@ -1,0 +1,131 @@
+name: cold_storage
+description: "Cold Storage Application"
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.1+1
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+  get: ^4.6.6
+  http: 1.1.0
+  another_flushbar: ^1.12.30
+  logger: ^2.0.2+1
+  connectivity_plus: ^5.0.2
+  flutter_secure_storage: ^9.0.0
+  flutter_spinkit: ^5.2.1
+  flutter_screenutil: ^5.9.0
+  flutter_svg: ^2.0.10+1
+  intl: ^0.19.0
+  device_info_plus: ^10.1.0
+  package_info_plus: ^8.0.1
+
+  firebase_messaging: ^15.0.3
+  firebase_core: ^3.2.0
+  flutter_local_notifications: ^17.1.2
+  permission_handler: ^11.3.1
+
+  dropdown_search: ^5.0.6
+  dropdown_button2: ^2.3.9
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+  assets:
+    - assets/icons/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/inter/Inter-Black.ttf
+    - family : InterBold
+      fonts:
+        - asset: assets/fonts/inter/Inter-Bold.ttf
+    - family : InterExtraBold
+      fonts:
+        - asset: assets/fonts/inter/Inter-ExtraBold.ttf
+    - family : InterExtraLight
+      fonts :
+        - asset: assets/fonts/inter/Inter-ExtraLight.ttf
+    - family : InterLight
+      fonts :
+        - asset: assets/fonts/inter/Inter-Light.ttf
+    - family : InterMedium
+      fonts :
+        - asset: assets/fonts/inter/Inter-Medium.ttf
+    - family : InterRegular
+      fonts :
+        - asset: assets/fonts/inter/Inter-Regular.ttf
+    - family : InterSemiBold
+      fonts :
+        - asset: assets/fonts/inter/Inter-SemiBold.ttf
+    - family : InterThin
+      fonts :
+        - asset: assets/fonts/inter/Inter-Thin.ttf
+
+ 
+    - family: PublicSans
+      fonts:
+        - asset: assets/fonts/public_sans/PublicSans-Black.ttf
+    - family : PublicSansBold
+      fonts:
+        - asset: assets/fonts/public_sans/PublicSans-Bold.ttf
+    - family : PublicSansExtraBold
+      fonts:
+        - asset: assets/fonts/public_sans/PublicSans-ExtraBold.ttf
+    - family : PublicSansExtraLight
+      fonts :
+        - asset: assets/fonts/public_sans/PublicSans-ExtraLight.ttf
+    - family : PublicSansLight
+      fonts :
+        - asset: assets/fonts/public_sans/PublicSans-Light.ttf
+    - family : PublicSansMedium
+      fonts :
+        - asset: assets/fonts/public_sans/PublicSans-Medium.ttf
+    - family : PublicSansRegular
+      fonts :
+        - asset: assets/fonts/public_sans/PublicSans-Regular.ttf
+    - family : PublicSansSemiBold
+      fonts :
+        - asset: assets/fonts/public_sans/PublicSans-SemiBold.ttf
+    - family : PublicSansThin
+      fonts :
+        - asset: assets/fonts/public_sans/PublicSans-Thin.ttf

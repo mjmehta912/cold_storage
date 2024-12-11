@@ -1,0 +1,9 @@
+const String kStorageIsLoggedIn = 'is_logged_in';
+const String kStorageToken = 'token';
+const String kStorageBaseUrl = 'base_url';
+const String kStorageUserName = 'user_name';
+const String kStorageUserID = 'user_id';
+const String kStorageUserData = 'user_data';
+const String kStorageCompanyData = 'company_data';
+const String kStorageUserCompanies = 'user_companies';
+const String kStorageDeviceId = 'device_id';
