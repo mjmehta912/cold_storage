@@ -1,10 +1,10 @@
 import 'package:another_flushbar/flushbar.dart';
 import 'package:cold_storage/app/constants/color_constants.dart';
 import 'package:cold_storage/app/helper/dev/logger_utils.dart';
+import 'package:cold_storage/app/utils/app_widgets/app_loading_indicator.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_text.dart';
 import 'package:cold_storage/app/utils/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 class AlertMessageUtils {
@@ -78,16 +78,9 @@ class AlertMessageUtils {
         builder: (_) => WillPopScope(
           child: Container(
             decoration: BoxDecoration(
-              color: kColorWhite.withOpacity(.5),
+              color: kColorWhite.withOpacity(0.5),
             ),
-            child: const SizedBox(
-              width: 60,
-              height: 60,
-              child: SpinKitFadingCircle(
-                color: kColorBlack,
-                size: 50.0,
-              ),
-            ),
+            child: const AppLoadingIndicator(),
           ),
           onWillPop: () async => false,
         ),

@@ -123,7 +123,7 @@ const String kRemarksHere = 'Remarks here';
 const String kStatus = 'Status';
 const String kYourReqWillBeSendToAdmin = 'Your request will be send to admin';
 const String kNewVersionDialogTitleText =
-    'Older version detected.\n Please update latest version.';
+    'Older version detected.\nPlease update latest version.';
 
 /// view by
 const String kIndividual = 'Individual';
@@ -140,8 +140,8 @@ const String kColdVehicle = 'Cold Vehicle';
 const String kIsZero = 'is 0';
 const String kAboveZero = 'Above 0';
 
-const String kAreYouSureYouWantToDelete = 'Are you sure you want to delete';
-const String kAreYouSureYouWantToLogout = 'Are you sure you want to logout';
+const String kAreYouSureYouWantToDelete = 'Are you sure you want to delete?';
+const String kAreYouSureYouWantToLogout = 'Are you sure you want to logout?';
 
 const String kEmptyDoc = 'No Documents Found';
 const String kErrorUserName = 'Please enter an username';

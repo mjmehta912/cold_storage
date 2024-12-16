@@ -5,7 +5,9 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-clipToCopy({required String text}) {
+clipToCopy({
+  required String text,
+}) {
   Clipboard.setData(ClipboardData(text: text));
   Get.find<AlertMessageUtils>().showSuccessSnackBar(
     'Copied!, Text copied to clipboard.',

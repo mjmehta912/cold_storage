@@ -16,22 +16,26 @@ void showNewVersionDialog(
     context: context,
     builder: (context) {
       return Dialog(
-        backgroundColor: kColorBackground,
-        surfaceTintColor: kColorBackground,
-        insetPadding: const EdgeInsets.symmetric(horizontal: 0),
+        backgroundColor: mColorAppbar,
+        surfaceTintColor: mColorAppbar,
+        insetPadding: const EdgeInsets.symmetric(
+          horizontal: 0,
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: AppUIUtils.homeBorderRadius,
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 15,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               AppText(
                 text: kNewVersionDialogTitleText,
-                align: TextAlign.center,
-                style: TextStyles.kPrimarySemiBoldInter(
-                  colors: kColorSecondPrimary,
+                style: TextStyles.kPrimaryBoldPublicSans(
+                  colors: mColorPrimaryText,
                   fontSize: TextStyles.k18FontSize,
                 ),
               ),
@@ -40,8 +44,14 @@ void showNewVersionDialog(
                 onPressed: () async {
                   Get.back();
                 },
-                buttonWidth: 0.4.screenWidth,
+                buttonWidth: 0.3.screenWidth,
+                buttonHeight: 40,
                 buttonText: kOkay,
+                buttonColor: mColorPrimaryText,
+                textStyle: TextStyles.kPrimarySemiBoldPublicSans(
+                  colors: mColorBackground,
+                  fontSize: TextStyles.k16FontSize,
+                ),
               ),
             ],
           ),

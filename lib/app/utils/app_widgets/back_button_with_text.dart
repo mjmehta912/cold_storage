@@ -16,22 +16,22 @@ backButtonWithText(
   return Row(
     children: [
       if (isShowBackButton)
-        GestureDetector(
-          onTap: onTap,
-          child: SvgPicture.asset(
+        IconButton(
+          onPressed: onTap,
+          icon: SvgPicture.asset(
             kIconBackArrow,
             height: 15,
             width: 15,
           ),
         ),
-      AppSpaces.h24,
+      AppSpaces.h10,
       AppText(
         text: text ?? '',
         style: TextStyles.kPrimarySemiBoldPublicSans(
           fontSize: fontSize ?? TextStyles.k22FontSize,
           colors: mColorPrimaryText,
         ),
-      )
+      ),
     ],
   );
 }
