@@ -33,57 +33,71 @@ class _AppDropDownWithCheckBoxState extends State<AppDropDownWithCheckBox> {
     return DropdownButtonHideUnderline(
       child: DropdownButton2<String>(
         isExpanded: true,
-        items: widget.items.map((item) {
-          return DropdownMenuItem(
-            value: item,
-            enabled: false,
-            child: StatefulBuilder(
-              builder: (context, menuSetState) {
-                final isSelected = selectedItems.contains(item);
-                return InkWell(
-                  onTap: () {
-                    setState(() {
-                      if (isSelected) {
-                        selectedItems.remove(item);
-                      } else {
-                        selectedItems.add(item);
-                      }
-                    });
-                    menuSetState(() {});
-                  },
-                  child: Container(
-                    height: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            if (isSelected)
-                              const Icon(Icons.check_box_outlined)
-                            else
-                              const Icon(Icons.check_box_outline_blank),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: AppText(
-                                text: item,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyles.kPrimaryBoldInter(
-                                  fontSize: TextStyles.k24FontSize,
-                                  colors: kColorSecondPrimary,
+        items: widget.items.map(
+          (item) {
+            return DropdownMenuItem(
+              value: item,
+              enabled: false,
+              child: StatefulBuilder(
+                builder: (context, menuSetState) {
+                  final isSelected = selectedItems.contains(item);
+                  return InkWell(
+                    onTap: () {
+                      setState(
+                        () {
+                          if (isSelected) {
+                            selectedItems.remove(item);
+                          } else {
+                            selectedItems.add(item);
+                          }
+                        },
+                      );
+                      menuSetState(
+                        () {},
+                      );
+                    },
+                    child: Container(
+                      height: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                        vertical: 8,
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              if (isSelected)
+                                const Icon(
+                                  Icons.check_box_outlined,
+                                  color: mColorPrimaryText,
+                                )
+                              else
+                                const Icon(
+                                  Icons.check_box_outline_blank,
+                                ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: AppText(
+                                  text: item,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyles.kPrimaryBoldInter(
+                                    fontSize: TextStyles.k24FontSize,
+                                    colors: kColorSecondPrimary,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
-            ),
-          );
-        }).toList(),
+                  );
+                },
+              ),
+            );
+          },
+        ).toList(),
         value: selectedItems.isEmpty ? null : selectedItems.last,
         onChanged: (String? value) {},
         onMenuStateChange: (isOpen) {
@@ -91,7 +105,9 @@ class _AppDropDownWithCheckBoxState extends State<AppDropDownWithCheckBox> {
             widget.callBack(selectedItems);
             textEditingController.clear();
           }
-          setState(() {});
+          setState(
+            () {},
+          );
         },
         selectedItemBuilder: (context) {
           return widget.items.map(

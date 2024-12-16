@@ -13,8 +13,10 @@ import 'package:get/get.dart';
 class AccountLedgerReportBaseController extends GetxController {
   RxBool isComingFromHome = false.obs;
 
-  EdgeInsets textFieldTitlePadding =
-      const EdgeInsets.symmetric(horizontal: 14, vertical: 2);
+  EdgeInsets textFieldTitlePadding = const EdgeInsets.symmetric(
+    horizontal: 14,
+    vertical: 2,
+  );
 
   TextEditingController dateFromController = TextEditingController();
   TextEditingController dateToController = TextEditingController();
@@ -28,23 +30,32 @@ class AccountLedgerReportBaseController extends GetxController {
   Rx<DateTime> dateTo = DateTime.now().obs;
 
   /// customers
-  RxList<CustomerData> customers = List<CustomerData>.empty(growable: true).obs;
+  RxList<CustomerData> customers = List<CustomerData>.empty(
+    growable: true,
+  ).obs;
   Rx<CustomerData> selectedCustomers = CustomerData().obs;
 
   onIndexChange() {
     try {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-        Get.lazyPut(() => GeneralRepo(), fenix: true);
-        await getCustomerDataFromServer();
-      });
+      WidgetsBinding.instance.addPostFrameCallback(
+        (timeStamp) async {
+          Get.lazyPut(
+            () => GeneralRepo(),
+            fenix: true,
+          );
+          await getCustomerDataFromServer();
+        },
+      );
     } catch (e) {
-      LoggerUtils.logException('onIndexChange account ledger report base', e);
+      LoggerUtils.logException(
+        'onIndexChange account ledger report base',
+        e,
+      );
     }
   }
 
   @override
   void onInit() {
-    // TODO: implement onInit
     dateFromController.text = dateFrom.value.dateWithYear;
     dateToController.text = dateTo.value.dateWithYear;
     onIndexChange();
@@ -58,7 +69,10 @@ class AccountLedgerReportBaseController extends GetxController {
         customers.addAll(res.customerList ?? []);
       }
     } catch (e) {
-      LoggerUtils.logException('getCustomerDataFromServer', e);
+      LoggerUtils.logException(
+        'getCustomerDataFromServer',
+        e,
+      );
     }
   }
 
@@ -75,7 +89,9 @@ class AccountLedgerReportBaseController extends GetxController {
       coCode: AppConst.companyData.value.coCode ?? 0,
       userID: userId,
     );
-    Get.toNamed(kRouteAccountLedgerReportDetailView,
-        arguments: [inwardStockLedgerReqModel, selectedCustomers.value]);
+    Get.toNamed(
+      kRouteAccountLedgerReportDetailView,
+      arguments: [inwardStockLedgerReqModel, selectedCustomers.value],
+    );
   }
 }

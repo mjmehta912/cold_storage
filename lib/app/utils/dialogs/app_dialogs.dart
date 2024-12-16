@@ -1,7 +1,6 @@
 import 'package:cold_storage/app/constants/color_constants.dart';
 import 'package:cold_storage/app/utils/text_styles/text_styles.dart';
 import 'package:cold_storage/app/utils/ui/app_alert_sheet.dart';
-import 'package:cold_storage/app/utils/ui/app_confirm_sheet.dart';
 import 'package:cold_storage/app/utils/ui/app_ui_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -87,26 +86,6 @@ class AppDialogs {
           actionButtonText: actionButtonText,
           negativeClick: negativeClick,
           positiveClick: positiveClick,
-        );
-      },
-    );
-  }
-
-  static Future<void> confirmSheet({
-    required BuildContext context,
-    required String title,
-    required String confirmText,
-    required String actionButtonText,
-    required void Function() onConfirm,
-  }) async {
-    await _showBottomSheet(
-      context: context,
-      builder: (context) {
-        return AppConfirmSheet(
-          title: title,
-          confirmText: confirmText,
-          actionButtonText: actionButtonText,
-          onConfirm: onConfirm,
         );
       },
     );

@@ -26,9 +26,12 @@ class AppAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 32),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 30,
+      ),
       decoration: BoxDecoration(
-        color: kColorBackground,
+        color: mColorAppbar,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(AppUIUtils.primaryRadius),
           topRight: Radius.circular(AppUIUtils.primaryRadius),
@@ -38,51 +41,49 @@ class AppAlertDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _title,
+          AppText(
+            text: title,
+            style: TextStyles.kPrimaryBoldPublicSans(
+              colors: mColorPrimaryText,
+              fontSize: TextStyles.k28FontSize,
+            ),
+          ),
           AppSpaces.v8,
-          _alertText,
+          AppText(
+            text: alertText,
+            style: TextStyles.kPrimarySemiBoldPublicSans(
+              colors: mColorPrimaryText,
+              fontSize: TextStyles.k20FontSize,
+            ),
+          ),
           AppSpaces.v32,
-          _actions(context),
+          Row(
+            children: [
+              Expanded(
+                child: appButton(
+                  onPressed: negativeClick,
+                  buttonText: kNo,
+                  textStyle: TextStyles.kPrimaryBoldPublicSans(
+                    fontSize: TextStyles.k24FontSize,
+                    colors: mColorPrimaryText,
+                  ),
+                ),
+              ),
+              AppSpaces.h20,
+              Expanded(
+                child: appButton(
+                  onPressed: positiveClick,
+                  buttonText: actionButtonText,
+                  textStyle: TextStyles.kPrimaryBoldPublicSans(
+                    fontSize: TextStyles.k24FontSize,
+                    colors: mColorPrimaryText,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
-    );
-  }
-
-  Widget get _title {
-    return AppText(
-      text: title,
-      style: TextStyles.kPrimaryBoldInter(
-          colors: kColorSecondPrimary, fontSize: TextStyles.k28FontSize),
-    );
-  }
-
-  Widget get _alertText {
-    return AppText(
-      text: alertText,
-      style: TextStyles.kPrimarySemiBoldInter(
-        colors: kColorSecondPrimary,
-        fontSize: TextStyles.k20FontSize,
-      ),
-    );
-  }
-
-  Widget _actions(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: appButton(
-            onPressed: negativeClick,
-            buttonText: kNo,
-          ),
-        ),
-        AppSpaces.h20,
-        Expanded(
-          child: appButton(
-            onPressed: positiveClick,
-            buttonText: actionButtonText,
-          ),
-        ),
-      ],
     );
   }
 }

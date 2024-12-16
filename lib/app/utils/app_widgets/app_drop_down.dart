@@ -115,6 +115,7 @@ class AppDropDown<T> extends StatelessWidget {
                 ),
                 hintStyle: TextStyles.kPrimaryRegularPublicSans(
                   colors: mColorBlack,
+                  fontSize: 16,
                 ),
                 alignLabelWithHint: true,
                 contentPadding: const EdgeInsets.symmetric(

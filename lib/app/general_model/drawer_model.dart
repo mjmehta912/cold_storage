@@ -1,27 +1,42 @@
 import 'package:cold_storage/app/constants/app_constants.dart';
-import 'package:cold_storage/app/constants/image_constants.dart';
 import 'package:cold_storage/app/constants/route_constants.dart';
+import 'package:flutter/material.dart';
 
 class DrawerData {
   String? name;
   String? navigateTo;
-  String? iconName;
+  IconData? icon;
   bool? isHeader = false;
 
-  DrawerData({this.name, this.navigateTo, this.iconName, this.isHeader});
+  DrawerData({
+    this.name,
+    this.navigateTo,
+    this.icon,
+    this.isHeader,
+  });
 
   static List<DrawerData> drawerList = [
-    // DrawerData(name: kGeneralAction, isHeader: false),
     DrawerData(
-        name: kChangeCompany, iconName: kIconChangeCompany, navigateTo: kRouteSelectCompanyView),
+      name: kChangeCompany,
+      icon: Icons.sync,
+      navigateTo: kRouteSelectCompanyView,
+    ),
   ];
   static List<DrawerData> drawerList2 = [
-    // DrawerData(name: kAdminAction, isHeader: false),
+    // DrawerData(
+    //   name: kAuthorizeRequest,
+    //   icon: Icons.verified_outlined,
+    //   navigateTo: kRouteOutwardDetailsBaseView,
+    // ),
     DrawerData(
-        name: kAuthorizeRequest, iconName: kIconAuthRequest, navigateTo: kRouteOutwardDetailsBaseView),
-    DrawerData(name: kUserRegistration, iconName: kIconAddUser, navigateTo: kRouteUserRegisterView),
-    // DrawerData(name: kGeneralAction, isHeader: false),
+      name: kUserRegistration,
+      icon: Icons.people_outline,
+      navigateTo: kRouteUserRegisterView,
+    ),
     DrawerData(
-        name: kChangeCompany, iconName: kIconChangeCompany, navigateTo: kRouteSelectCompanyView),
+      name: kChangeCompany,
+      icon: Icons.sync,
+      navigateTo: kRouteSelectCompanyView,
+    ),
   ];
 }

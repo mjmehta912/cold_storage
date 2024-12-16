@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:cold_storage/app/constants/app_constants.dart';
 import 'package:cold_storage/app/constants/color_constants.dart';
 import 'package:cold_storage/app/constants/local_storage_constants.dart';
@@ -32,7 +34,10 @@ class NotificationController extends GetxController {
   @override
   void onInit() {
     setIntentData();
-    Get.lazyPut(() => NotificationRepo(), fenix: true);
+    Get.lazyPut(
+      () => NotificationRepo(),
+      fenix: true,
+    );
     getNotificationFromServer();
     super.onInit();
   }
@@ -41,7 +46,10 @@ class NotificationController extends GetxController {
     try {
       isFromNotification.value = Get.arguments as bool;
     } catch (e) {
-      LoggerUtils.logException('setIntentData - notification controller :', e);
+      LoggerUtils.logException(
+        'setIntentData - notification controller :',
+        e,
+      );
     }
   }
 
@@ -67,7 +75,10 @@ class NotificationController extends GetxController {
       isDataLoading.value = false;
     } catch (e) {
       isDataLoading.value = false;
-      LoggerUtils.logException('getNotificationFromServer', e);
+      LoggerUtils.logException(
+        'getNotificationFromServer',
+        e,
+      );
     }
   }
 
@@ -149,7 +160,10 @@ class NotificationController extends GetxController {
         await getNotificationFromServer();
       }
     } catch (e) {
-      LoggerUtils.logException('rejectReqApiCall', e);
+      LoggerUtils.logException(
+        'rejectReqApiCall',
+        e,
+      );
     }
   }
 

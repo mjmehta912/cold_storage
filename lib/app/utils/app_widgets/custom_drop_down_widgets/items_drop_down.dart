@@ -189,6 +189,7 @@ class _AppDropDownWithCheckBoxState extends State<ItemsDropdown> {
                   hintText: 'Search an Item',
                   hintStyle: TextStyles.kPrimaryRegularPublicSans(
                     colors: mColorBlack,
+                    fontSize: 16,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: AppUIUtils.primaryBorderRadius,

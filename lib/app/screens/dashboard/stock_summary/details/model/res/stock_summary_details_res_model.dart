@@ -24,7 +24,8 @@ class StockSummaryDetailsResModel {
         message: json["message"],
         data: json["data"] == null
             ? []
-            : List<StockSummaryDetailData>.from(json["data"].map((x) => StockSummaryDetailData.fromJson(x))),
+            : List<StockSummaryDetailData>.from(
+                json["data"].map((x) => StockSummaryDetailData.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -42,7 +43,8 @@ class StockSummaryDetailData {
     this.itemData,
   });
 
-  factory StockSummaryDetailData.fromJson(Map<String, dynamic> json) => StockSummaryDetailData(
+  factory StockSummaryDetailData.fromJson(Map<String, dynamic> json) =>
+      StockSummaryDetailData(
         companyName: json["companyName"],
         itemData: List<ItemDatum>.from(
             json["itemData"].map((x) => ItemDatum.fromJson(x))),

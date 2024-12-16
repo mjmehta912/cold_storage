@@ -1,54 +1,65 @@
 import 'package:cold_storage/app/constants/app_constants.dart';
 import 'package:cold_storage/app/constants/color_constants.dart';
-import 'package:cold_storage/app/constants/image_constants.dart';
 import 'package:cold_storage/app/general_model/drawer_model.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_size_extension.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_spaces.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_text.dart';
 import 'package:cold_storage/app/utils/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({super.key});
+  const DrawerWidget({
+    super.key,
+    required this.onTap,
+  });
+
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      width: 0.6.screenWidth,
-      backgroundColor: kColorSecondPrimary,
+      width: 0.7.screenWidth,
+      backgroundColor: mColorAppbar,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: SafeArea(
         child: Column(
-          // Important: Remove any padding from the ListView.
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 15,
+              ),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
                     width: 0.4.screenWidth,
                     child: AppText(
-                      text: AppConst.userName,
-                      style: TextStyles.kPrimaryBoldInter(
+                      text: 'Hi,',
+                      style: TextStyles.kPrimarySemiBoldPublicSans(
                         fontSize: TextStyles.k24FontSize,
-                        colors: kColorBackground,
+                        colors: mColorPrimaryText,
                       ),
                     ),
                   ),
-                  GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: SvgPicture.asset(kIconDrawerClose)),
+                  SizedBox(
+                    width: 0.4.screenWidth,
+                    child: AppText(
+                      text: AppConst.userName,
+                      style: TextStyles.kPrimarySemiBoldPublicSans(
+                        fontSize: TextStyles.k24FontSize,
+                        colors: mColorPrimaryText,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
+            AppSpaces.v12,
             Expanded(
               child: ListView.builder(
                 itemCount: AppConst.companyData.value.userType == '0'
@@ -65,28 +76,37 @@ class DrawerWidget extends StatelessWidget {
                       onTap: () {
                         if ((data.navigateTo ?? '').isNotEmpty) {
                           Get.back();
-                          Get.toNamed(data.navigateTo ?? '',
-                              arguments: index == 0 ? false : null);
+                          Get.toNamed(
+                            data.navigateTo ?? '',
+                            arguments: index == 0 ? false : null,
+                          );
                         }
                       },
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(vertical: 8),
+                      child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 18),
-                        decoration: const BoxDecoration(
-                          color: kColorBackground,
+                          horizontal: 15,
+                          vertical: 10,
                         ),
-                        child: Row(
+                        child: Column(
                           children: [
-                            SvgPicture.asset(data.iconName ?? ''),
-                            AppSpaces.h8,
-                            AppText(
-                              text: data.name ?? '',
-                              style: TextStyles.kPrimaryBoldInter(
-                                fontSize: TextStyles.k14FontSize,
-                                colors: kColorSecondPrimary,
-                              ),
+                            Row(
+                              children: [
+                                Icon(
+                                  data.icon,
+                                  color: mColorPrimaryText,
+                                  size: 35,
+                                ),
+                                AppSpaces.h12,
+                                AppText(
+                                  text: data.name ?? '',
+                                  style: TextStyles.kPrimarySemiBoldPublicSans(
+                                    fontSize: TextStyles.k18FontSize,
+                                    colors: kColorSecondPrimary,
+                                  ),
+                                ),
+                              ],
                             ),
+                            AppSpaces.v10,
                           ],
                         ),
                       ),
@@ -104,25 +124,57 @@ class DrawerWidget extends StatelessWidget {
                 },
               ),
             ),
-            Column(
-              children: [
-                AppText(
-                  text:
-                      'v${AppConst.packageInfo?.version ?? ''} | $kMadeInIndia',
-                  style: TextStyles.kPrimaryRegularInter(
-                      colors: kColorWhite, fontSize: TextStyles.k12FontSize),
-                ),
-                SizedBox(
-                  width: 0.5.screenWidth,
-                  child: AppText(
-                    text: kCopyRightText,
-                    align: TextAlign.center,
-                    style: TextStyles.kPrimaryRegularInter(
-                        colors: kColorWhite, fontSize: TextStyles.k12FontSize),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GestureDetector(
+                    onTap: onTap,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.logout,
+                          size: 35,
+                          color: mColorPrimaryText,
+                        ),
+                        AppSpaces.h20,
+                        AppText(
+                          text: 'Log Out',
+                          style: TextStyles.kPrimarySemiBoldPublicSans(
+                            fontSize: TextStyles.k22FontSize,
+                            colors: kColorSecondPrimary,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                AppSpaces.v12,
-              ],
+                  AppSpaces.v16,
+                  AppText(
+                    text:
+                        'v${AppConst.packageInfo?.version ?? ''} | $kMadeInIndia',
+                    style: TextStyles.kPrimarySemiBoldPublicSans(
+                      colors: mColorPrimaryText,
+                      fontSize: TextStyles.k14FontSize,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 0.5.screenWidth,
+                    child: AppText(
+                      text: kCopyRightText,
+                      style: TextStyles.kPrimarySemiBoldPublicSans(
+                        colors: mColorPrimaryText,
+                        fontSize: TextStyles.k14FontSize,
+                      ),
+                    ),
+                  ),
+                  AppSpaces.v12,
+                ],
+              ),
             ),
           ],
         ),

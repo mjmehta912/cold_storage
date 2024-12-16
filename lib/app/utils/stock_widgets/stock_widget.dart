@@ -69,8 +69,8 @@ Widget bottomTitleWidget(
   return Container(
     width: 1.screenWidth,
     padding: const EdgeInsets.symmetric(
-      vertical: 8,
-      horizontal: 16,
+      vertical: 5,
+      horizontal: 10,
     ),
     decoration: BoxDecoration(
       color: color ?? mColorAppbar,
@@ -80,7 +80,7 @@ Widget bottomTitleWidget(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: 0.65.screenWidth,
+          width: 0.5.screenWidth,
           child: AppText(
             text: title,
             maxLines: 2,

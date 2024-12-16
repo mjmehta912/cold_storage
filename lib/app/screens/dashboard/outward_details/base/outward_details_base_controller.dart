@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+// ignore: constant_identifier_names
 enum Status { Accept, Pending, Reject }
 
 class OutwardDetailsBaseController extends GetxController {
@@ -21,17 +22,24 @@ class OutwardDetailsBaseController extends GetxController {
 
   RxBool isViewRequest = false.obs;
   RxList<OutwardDetailsData> outwardDetailsList =
-      List<OutwardDetailsData>.empty(growable: true).obs;
+      List<OutwardDetailsData>.empty(
+    growable: true,
+  ).obs;
 
   RxList<OutwardDetailsData> filterOutwardDetailsList =
-      List<OutwardDetailsData>.empty(growable: true).obs;
+      List<OutwardDetailsData>.empty(
+    growable: true,
+  ).obs;
 
   RxInt selectedFilterIndex = 0.obs;
   RxBool isDataLoading = true.obs;
 
   @override
   void onInit() {
-    Get.lazyPut(() => OutwardRepo(), fenix: true);
+    Get.lazyPut(
+      () => OutwardRepo(),
+      fenix: true,
+    );
     setIntentData();
     super.onInit();
   }
@@ -39,11 +47,16 @@ class OutwardDetailsBaseController extends GetxController {
   setIntentData() {
     try {
       isViewRequest.value = Get.arguments as bool;
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-        await getOutwardDetailsFromApiCall();
-      });
+      WidgetsBinding.instance.addPostFrameCallback(
+        (timeStamp) async {
+          await getOutwardDetailsFromApiCall();
+        },
+      );
     } catch (e) {
-      LoggerUtils.logException('setIntentData', e);
+      LoggerUtils.logException(
+        'setIntentData',
+        e,
+      );
     }
   }
 
@@ -64,8 +77,9 @@ class OutwardDetailsBaseController extends GetxController {
         deviceID: deviceID,
       );
 
-      var res = await Get.find<OutwardRepo>()
-          .getOutwardDetailsFromServer(reqModel: reqModel);
+      var res = await Get.find<OutwardRepo>().getOutwardDetailsFromServer(
+        reqModel: reqModel,
+      );
       if (res != null) {
         outwardDetailsList.addAll(res.data ?? []);
         filterOutwardDetailsList.addAll(res.data ?? []);
@@ -73,7 +87,10 @@ class OutwardDetailsBaseController extends GetxController {
       isDataLoading.value = false;
     } catch (e) {
       isDataLoading.value = false;
-      LoggerUtils.logException('getOutwardDetailsFromApiCall', e);
+      LoggerUtils.logException(
+        'getOutwardDetailsFromApiCall',
+        e,
+      );
     }
   }
 

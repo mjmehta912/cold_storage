@@ -65,6 +65,7 @@ class UserRegisterController extends GetxController {
 
   userRegApiCall() async {
     List<String> pCodes = [];
+    // ignore: unused_local_variable
     int userId =
         await Get.find<LocalStorage>().getIntFromStorage(kStorageUserID);
     try {

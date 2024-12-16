@@ -71,14 +71,12 @@ class LocalNotifications {
   }
 
   Future<void> selectNotification(NotificationResponse pay) async {
-    print('pay.payload :: ${pay.payload}');
     var json = jsonDecode(pay.payload ?? '');
 
     notificationHandlerTap(json);
   }
 
   notificationHandlerTap(Map json) async {
-    print("Click on notification $json");
     try {
       if (json.containsKey('screenName')) {
         if (json['screenName'] == 'loginScreen') {
@@ -179,6 +177,7 @@ class LocalNotifications {
 
   @pragma('vm:entry-point')
   void notificationTapBackground(NotificationResponse notificationResponse) {
+    // ignore: avoid_print
     print(
         'notification action tapped with input: ${notificationResponse.input}');
 // ignore: avoid_print

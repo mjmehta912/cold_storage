@@ -52,13 +52,15 @@ class _AppDropDownWithCheckBoxState extends State<CustDropdown> {
                   final isSelected = selectedItems.contains(item);
                   return InkWell(
                     onTap: () {
-                      setState(() {
-                        if (isSelected) {
-                          selectedItems.remove(item);
-                        } else {
-                          selectedItems.add(item);
-                        }
-                      });
+                      setState(
+                        () {
+                          if (isSelected) {
+                            selectedItems.remove(item);
+                          } else {
+                            selectedItems.add(item);
+                          }
+                        },
+                      );
                       menuSetState(
                         () {},
                       );
@@ -198,6 +200,7 @@ class _AppDropDownWithCheckBoxState extends State<CustDropdown> {
                   hintText: 'Search a Customer',
                   hintStyle: TextStyles.kPrimaryRegularPublicSans(
                     colors: mColorBlack,
+                    fontSize: 16,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: AppUIUtils.primaryBorderRadius,

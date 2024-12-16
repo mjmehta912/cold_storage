@@ -7,8 +7,9 @@ import 'package:get/get.dart';
 
 clipToCopy({required String text}) {
   Clipboard.setData(ClipboardData(text: text));
-  Get.find<AlertMessageUtils>()
-      .showSuccessSnackBar('Copied!, Text copied to clipboard.');
+  Get.find<AlertMessageUtils>().showSuccessSnackBar(
+    'Copied!, Text copied to clipboard.',
+  );
 }
 
 Future<String?> getId() async {

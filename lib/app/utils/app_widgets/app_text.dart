@@ -21,8 +21,7 @@ class AppText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      // style: style ?? Theme.of(context).textTheme.labelMedium,
-      style: style ?? TextStyles.kPrimaryRegularInter(),
+      style: style ?? TextStyles.kPrimaryRegularPublicSans(),
       textAlign: align,
       overflow: overflow,
       maxLines: maxLines,

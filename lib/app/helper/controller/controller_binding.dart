@@ -21,26 +21,46 @@ import 'package:get/get.dart';
 class ControllerBindings extends Bindings {
   @override
   void dependencies() {
-    // TODO: implement dependencies
     Get.put<AlertMessageUtils>(AlertMessageUtils(), permanent: true);
     Get.put<LocalStorage>(LocalStorage(), permanent: true);
     Get.lazyPut<BottomNavController>(() => BottomNavController(), fenix: true);
     Get.lazyPut<BottomNavController>(() => BottomNavController(), fenix: true);
     Get.lazyPut<LoginController>(() => LoginController(), fenix: true);
-    Get.lazyPut<SelectCompanyController>(() => SelectCompanyController(), fenix: true);
+    Get.lazyPut<SelectCompanyController>(() => SelectCompanyController(),
+        fenix: true);
 
     Get.lazyPut<HomeBaseController>(() => HomeBaseController(), fenix: true);
-    Get.lazyPut<InwardStockLedgerBaseController>(() => InwardStockLedgerBaseController(), fenix: true);
-    Get.lazyPut<InwardStockLedgerDetailController>(() => InwardStockLedgerDetailController(), fenix: true);
-    Get.lazyPut<StockSummaryBaseController>(() => StockSummaryBaseController(), fenix: true);
-    Get.lazyPut<StockSummaryDetailController>(() => StockSummaryDetailController(), fenix: true);
-    Get.lazyPut<StockLedgerReportBaseController>(() => StockLedgerReportBaseController(), fenix: true);
-    Get.lazyPut<StockLedgerReportDetailController>(() => StockLedgerReportDetailController(), fenix: true);
-    Get.lazyPut<AccountLedgerReportBaseController>(() => AccountLedgerReportBaseController(), fenix: true);
-    Get.lazyPut<AccountLedgerReportDetailController>(() => AccountLedgerReportDetailController(), fenix: true);
-    Get.lazyPut<OutwardDetailsBaseController>(() => OutwardDetailsBaseController(), fenix: true);
-    Get.lazyPut<OutwardRequestController>(() => OutwardRequestController(), fenix: true);
-    Get.lazyPut<UserRegisterController>(() => UserRegisterController(), fenix: true);
-    Get.lazyPut<NotificationController>(() => NotificationController(), fenix: true);
+    Get.lazyPut<InwardStockLedgerBaseController>(
+        () => InwardStockLedgerBaseController(),
+        fenix: true);
+    Get.lazyPut<InwardStockLedgerDetailController>(
+        () => InwardStockLedgerDetailController(),
+        fenix: true);
+    Get.lazyPut<StockSummaryBaseController>(() => StockSummaryBaseController(),
+        fenix: true);
+    Get.lazyPut<StockSummaryDetailController>(
+        () => StockSummaryDetailController(),
+        fenix: true);
+    Get.lazyPut<StockLedgerReportBaseController>(
+        () => StockLedgerReportBaseController(),
+        fenix: true);
+    Get.lazyPut<StockLedgerReportDetailController>(
+        () => StockLedgerReportDetailController(),
+        fenix: true);
+    Get.lazyPut<AccountLedgerReportBaseController>(
+        () => AccountLedgerReportBaseController(),
+        fenix: true);
+    Get.lazyPut<AccountLedgerReportDetailController>(
+        () => AccountLedgerReportDetailController(),
+        fenix: true);
+    Get.lazyPut<OutwardDetailsBaseController>(
+        () => OutwardDetailsBaseController(),
+        fenix: true);
+    Get.lazyPut<OutwardRequestController>(() => OutwardRequestController(),
+        fenix: true);
+    Get.lazyPut<UserRegisterController>(() => UserRegisterController(),
+        fenix: true);
+    Get.lazyPut<NotificationController>(() => NotificationController(),
+        fenix: true);
   }
 }

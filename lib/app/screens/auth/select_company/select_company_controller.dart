@@ -22,7 +22,7 @@ class SelectCompanyController extends GetxController {
     try {
       var localStrVal = await Get.find<LocalStorage>()
           .getStringFromStorage(kStorageUserCompanies);
-      print('companies : ${jsonDecode(localStrVal)}');
+
       var decodedStr = jsonDecode(localStrVal);
 
       for (int i = 0; i < decodedStr.length; i++) {

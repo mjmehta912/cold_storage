@@ -68,7 +68,10 @@ class LoginController extends GetxController {
       String deviceId = await getId() ?? '';
       String fcmToken = await firebaseServices.getFCMToken();
 
-      Get.find<LocalStorage>().writeStringStorage(kStorageDeviceId, deviceId);
+      Get.find<LocalStorage>().writeStringStorage(
+        kStorageDeviceId,
+        deviceId,
+      );
       LoginRequestModel requestModel = LoginRequestModel(
         mobileNo: mobileController.text.trim(),
         password: passwordController.text.trim(),

@@ -30,36 +30,50 @@ class StockSummaryBaseController extends GetxController {
   Rx<DateTime> dateTo = DateTime.now().obs;
 
   /// items
-  RxList<ItemData> itemsList = List<ItemData>.empty(growable: true).obs;
+  RxList<ItemData> itemsList = List<ItemData>.empty(
+    growable: true,
+  ).obs;
   List<ItemData> selectedItems = [];
 
   /// customers
-  RxList<CustomerData> customers = List<CustomerData>.empty(growable: true).obs;
-  List<CustomerData> selectedCustomers = [];
+  RxList<CustomerData> customers = List<CustomerData>.empty(
+    growable: true,
+  ).obs;
+  RxList<CustomerData> selectedCustomers = <CustomerData>[].obs;
 
   /// view by
-  RxList<ViewByModel> viewByList = List<ViewByModel>.empty(growable: true).obs;
+  RxList<ViewByModel> viewByList = List<ViewByModel>.empty(
+    growable: true,
+  ).obs;
   ViewByModel? selectedViewBy;
 
   /// closing bal
-  RxList<ClosingBalModel> closingBalList =
-      List<ClosingBalModel>.empty(growable: true).obs;
+  RxList<ClosingBalModel> closingBalList = List<ClosingBalModel>.empty(
+    growable: true,
+  ).obs;
   ClosingBalModel? selectedClosingBal;
 
   onIndexChange() {
     try {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        Get.lazyPut(() => GeneralRepo(), fenix: true);
-        getCustomerDataFromServer();
-      });
+      WidgetsBinding.instance.addPostFrameCallback(
+        (timeStamp) {
+          Get.lazyPut(
+            () => GeneralRepo(),
+            fenix: true,
+          );
+          getCustomerDataFromServer();
+        },
+      );
     } catch (e) {
-      LoggerUtils.logException('onIndexChange stock summary base', e);
+      LoggerUtils.logException(
+        'onIndexChange stock summary base',
+        e,
+      );
     }
   }
 
   @override
   void onInit() {
-    // TODO: implement onInit
     dateFromController.text = dateFrom.value.dateWithYear;
     dateToController.text = dateTo.value.dateWithYear;
     viewByList.addAll(ViewByModel.viewByList);
@@ -77,7 +91,10 @@ class StockSummaryBaseController extends GetxController {
         customers.addAll(res.customerList ?? []);
       }
     } catch (e) {
-      LoggerUtils.logException('getCustomerDataFromServer', e);
+      LoggerUtils.logException(
+        'getCustomerDataFromServer',
+        e,
+      );
     }
   }
 
@@ -91,13 +108,17 @@ class StockSummaryBaseController extends GetxController {
         pCodes.add(element.pcode ?? '');
       }
 
-      var res =
-          await Get.find<GeneralRepo>().getItemsFromServer(pCodes: pCodes);
+      var res = await Get.find<GeneralRepo>().getItemsFromServer(
+        pCodes: pCodes,
+      );
       if (res != null) {
         itemsList.addAll(res.data ?? []);
       }
     } catch (e) {
-      LoggerUtils.logException('getItemsDataFromServer', e);
+      LoggerUtils.logException(
+        'getItemsDataFromServer',
+        e,
+      );
     }
   }
 
@@ -127,7 +148,9 @@ class StockSummaryBaseController extends GetxController {
       closing: selectedClosingBal?.id ?? 0,
       userID: userId,
     );
-    Get.toNamed(kRouteStockSummaryDetailView,
-        arguments: inwardStockLedgerReqModel);
+    Get.toNamed(
+      kRouteStockSummaryDetailView,
+      arguments: inwardStockLedgerReqModel,
+    );
   }
 }

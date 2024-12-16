@@ -7,11 +7,9 @@ import 'package:cold_storage/app/general_model/vehicle_type_model.dart';
 import 'package:cold_storage/app/helper/dev/logger_utils.dart';
 import 'package:cold_storage/app/repositories/general_repo.dart';
 import 'package:cold_storage/app/repositories/outward_repo.dart';
-import 'package:cold_storage/app/screens/dashboard/inward_stock_ledger/details/model/req/get_inward_stock_ledger_req_model.dart';
 import 'package:cold_storage/app/screens/dashboard/outward_request/model/req/outward_place_req_model.dart';
 import 'package:cold_storage/app/screens/dashboard/outward_request/model/res/inward_no_res_model.dart';
 import 'package:cold_storage/app/screens/dashboard/outward_request/model/res/lot_balance_res_model.dart';
-import 'package:cold_storage/app/screens/dashboard/outward_request/model/res/lot_no_res_model.dart';
 import 'package:cold_storage/app/services/general_services.dart';
 import 'package:cold_storage/app/utils/alert_message_utils.dart';
 import 'package:cold_storage/app/utils/extensions/app_date_time_extension.dart';
@@ -22,8 +20,10 @@ import 'package:get/get.dart';
 class OutwardRequestController extends GetxController {
   RxBool isComingFromHome = false.obs;
 
-  EdgeInsets textFieldTitlePadding =
-      const EdgeInsets.symmetric(horizontal: 14, vertical: 2);
+  EdgeInsets textFieldTitlePadding = const EdgeInsets.symmetric(
+    horizontal: 14,
+    vertical: 2,
+  );
 
   TextEditingController dateController = TextEditingController();
   TextEditingController timeController = TextEditingController();
@@ -32,7 +32,13 @@ class OutwardRequestController extends GetxController {
 
   TextEditingController searchController = TextEditingController();
 
-  Rx<DateTime> selectedDate = DateTime.now().add(const Duration(days: 1)).obs;
+  Rx<DateTime> selectedDate = DateTime.now()
+      .add(
+        const Duration(
+          days: 1,
+        ),
+      )
+      .obs;
   Rx<TimeOfDay> selectedTime = TimeOfDay.now().obs;
 
   RxBool isOutwardQtyGreater = false.obs;
@@ -41,26 +47,28 @@ class OutwardRequestController extends GetxController {
   RxList<ItemData> itemsList = List<ItemData>.empty(growable: true).obs;
   List<ItemData> selectedItems = [];
 
-  // /// customers
-  // RxList<CustomerData> customers = List<CustomerData>.empty(growable: true).obs;
-  // List<CustomerData> selectedCustomers = [];
-
   /// customers
-  RxList<CustomerData> customers = List<CustomerData>.empty(growable: true).obs;
+  RxList<CustomerData> customers = List<CustomerData>.empty(
+    growable: true,
+  ).obs;
   Rx<CustomerData> selectedCustomers = CustomerData().obs;
 
   /// vehicle type
-  RxList<VehicleTypeModel> vehicleType =
-      List<VehicleTypeModel>.empty(growable: true).obs;
+  RxList<VehicleTypeModel> vehicleType = List<VehicleTypeModel>.empty(
+    growable: true,
+  ).obs;
   Rx<VehicleTypeModel> selectedVehicleType = VehicleTypeModel().obs;
 
   /// Inward no
-  RxList<InwardNoData> inwardNoList =
-      List<InwardNoData>.empty(growable: true).obs;
+  RxList<InwardNoData> inwardNoList = List<InwardNoData>.empty(
+    growable: true,
+  ).obs;
   Rx<InwardNoData> selectedInwardNo = InwardNoData().obs;
 
   /// lot no
-  RxList<String> lotNoList = List<String>.empty(growable: true).obs;
+  RxList<String> lotNoList = List<String>.empty(
+    growable: true,
+  ).obs;
   Rx<String> selectedLotNo = ''.obs;
 
   /// lot balance
@@ -70,7 +78,6 @@ class OutwardRequestController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     setData();
     super.onInit();
   }
@@ -83,8 +90,14 @@ class OutwardRequestController extends GetxController {
       outwardQtyController.value.text = '';
       vehicleType.addAll(VehicleTypeModel.vehicleTypeList);
       selectedVehicleType.value = vehicleType[0];
-      Get.lazyPut(() => GeneralRepo(), fenix: true);
-      Get.lazyPut(() => OutwardRepo(), fenix: true);
+      Get.lazyPut(
+        () => GeneralRepo(),
+        fenix: true,
+      );
+      Get.lazyPut(
+        () => OutwardRepo(),
+        fenix: true,
+      );
       await getCustomerDataFromServer();
     });
   }
@@ -96,7 +109,10 @@ class OutwardRequestController extends GetxController {
         customers.addAll(res.customerList ?? []);
       }
     } catch (e) {
-      LoggerUtils.logException('getCustomerDataFromServer', e);
+      LoggerUtils.logException(
+        'getCustomerDataFromServer',
+        e,
+      );
     }
   }
 
@@ -146,9 +162,11 @@ class OutwardRequestController extends GetxController {
           getLotBalanceFromServerApiCall();
         }
       }
-      print('selectedLotNo ::${selectedLotNo.value}');
     } catch (e) {
-      LoggerUtils.logException('getLotNoFromServerApiCall', e);
+      LoggerUtils.logException(
+        'getLotNoFromServerApiCall',
+        e,
+      );
     }
   }
 
@@ -157,16 +175,14 @@ class OutwardRequestController extends GetxController {
       lotBalanceList.clear();
       selectedLotBalance.value = LotBalanceData();
 
-      String pCodes = '';
-      pCodes = selectedCustomers.value.pcode ?? '';
-
       GeneralReqModel reqModel = GeneralReqModel(
         database: AppConst.companyData.value.dbName ?? '',
         cocode: AppConst.companyData.value.coCode,
         invNo: selectedLotNo.value,
       );
-      var res = await Get.find<OutwardRepo>()
-          .getLotBalanceFromServer(reqModel: reqModel);
+      var res = await Get.find<OutwardRepo>().getLotBalanceFromServer(
+        reqModel: reqModel,
+      );
       if (res != null) {
         lotBalanceList.addAll(res.data ?? []);
         if (lotBalanceList.isNotEmpty) {
@@ -175,7 +191,10 @@ class OutwardRequestController extends GetxController {
         }
       }
     } catch (e) {
-      LoggerUtils.logException('getLotNoFromServerApiCall', e);
+      LoggerUtils.logException(
+        'getLotNoFromServerApiCall',
+        e,
+      );
     }
   }
 
@@ -187,13 +206,17 @@ class OutwardRequestController extends GetxController {
 
       pCodes.add(selectedCustomers.value.pcode ?? '');
 
-      var res =
-          await Get.find<GeneralRepo>().getItemsFromServer(pCodes: pCodes);
+      var res = await Get.find<GeneralRepo>().getItemsFromServer(
+        pCodes: pCodes,
+      );
       if (res != null) {
         itemsList.addAll(res.data ?? []);
       }
     } catch (e) {
-      LoggerUtils.logException('getItemsDataFromServer', e);
+      LoggerUtils.logException(
+        'getItemsDataFromServer',
+        e,
+      );
     }
   }
 
@@ -237,11 +260,16 @@ class OutwardRequestController extends GetxController {
 
       if (res != null) {
         Get.back();
-        Get.find<AlertMessageUtils>()
-            .showSuccessSnackBar1(Get.context!, res.message ?? '');
+        Get.find<AlertMessageUtils>().showSuccessSnackBar1(
+          Get.context!,
+          res.message ?? '',
+        );
       }
     } catch (e) {
-      LoggerUtils.logException('placeRequestApiCall', e);
+      LoggerUtils.logException(
+        'placeRequestApiCall',
+        e,
+      );
     }
   }
 
@@ -255,7 +283,12 @@ class OutwardRequestController extends GetxController {
         pickedTime.hour,
         pickedTime.minute);
     final currentDateTime = DateTime(
-        now.year, now.month, now.day, currentTime.hour, currentTime.minute);
+      now.year,
+      now.month,
+      now.day,
+      currentTime.hour,
+      currentTime.minute,
+    );
 
     return pickedDateTime.isAfter(currentDateTime);
   }

@@ -16,6 +16,7 @@ class GetInwardStockLedgerReqModel {
   int? viewBy;
   int? show;
   String? pCodes;
+  // ignore: non_constant_identifier_names
   String? PCODE;
   String? iCodes;
   String? invno;
@@ -32,6 +33,7 @@ class GetInwardStockLedgerReqModel {
     this.viewBy,
     this.show,
     this.pCodes,
+    // ignore: non_constant_identifier_names
     this.PCODE,
     this.iCodes,
     this.invno,

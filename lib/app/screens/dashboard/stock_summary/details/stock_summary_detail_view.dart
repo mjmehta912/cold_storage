@@ -1,6 +1,5 @@
 import 'package:cold_storage/app/constants/app_constants.dart';
 import 'package:cold_storage/app/constants/color_constants.dart';
-import 'package:cold_storage/app/screens/dashboard/stock_summary/details/model/res/stock_summary_details_res_model.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_bar_widget.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_scaffold.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_spaces.dart';
@@ -13,7 +12,9 @@ import 'package:get/get.dart';
 import 'stock_summary_detail_controller.dart';
 
 class StockSummaryDetailView extends GetView<StockSummaryDetailController> {
-  const StockSummaryDetailView({super.key});
+  const StockSummaryDetailView({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,79 +22,112 @@ class StockSummaryDetailView extends GetView<StockSummaryDetailController> {
       init: StockSummaryDetailController(),
       builder: (controller) {
         return AppScaffold(
+          bgColor: mColorAppbar,
           resizeToAvoidBottomInset: true,
           appBar: appBarWidget(
             context: context,
-            titleText: kStockSummary,
+            titleText: 'Stock Summary',
             onTap: () {
               Get.back();
             },
           ),
-          body: _stockSummaryListView(),
+          body: Obx(
+            () {
+              return controller.isDataLoading.value
+                  ? showLoaderText()
+                  : controller.stockSummaryDataList.isEmpty
+                      ? noDataFound(
+                          text: kNoDataFound,
+                        )
+                      : ListView.builder(
+                          itemCount: controller.stockSummaryDataList.length,
+                          padding: const EdgeInsets.all(12),
+                          itemBuilder: (context, index) {
+                            var data = controller.stockSummaryDataList[index];
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                titleWidget(
+                                  data.companyName ?? '',
+                                  bgColor: mColorCard2Primary,
+                                  textColor: mColorCard2Secondary,
+                                ),
+                                AppSpaces.v10,
+                                ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: (data.itemData ?? []).length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, subIndex) {
+                                    var subCatData = data.itemData?[subIndex];
+                                    return Column(
+                                      children: [
+                                        Card(
+                                          color: mColorBackground,
+                                          child: Column(
+                                            children: [
+                                              subTitleWidget(
+                                                subCatData?.itemName ?? '',
+                                                bgColor: mColorBackground,
+                                                textColor: mColorPrimaryText,
+                                              ),
+                                              Container(
+                                                decoration: const BoxDecoration(
+                                                  color: mColorBackground,
+                                                ),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  horizontal: 12,
+                                                  vertical: 8,
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        subListText(
+                                                          kOpeningQty,
+                                                          subCatData?.opqty ??
+                                                              '0',
+                                                        ),
+                                                        subListText(
+                                                          kIWQty,
+                                                          subCatData?.iqty ??
+                                                              '0',
+                                                        ),
+                                                        subListText(
+                                                          kOW,
+                                                          subCatData?.oqty ??
+                                                              '0',
+                                                        ),
+                                                        subListText(
+                                                          '$kQty $kBalance',
+                                                          subCatData?.bqty ??
+                                                              '0',
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        AppSpaces.v4,
+                                      ],
+                                    );
+                                  },
+                                ),
+                                AppSpaces.v6,
+                              ],
+                            );
+                          },
+                        );
+            },
+          ),
         );
       },
-    );
-  }
-
-  _stockSummaryListView() {
-    return Obx(() {
-      return controller.isDataLoading.value
-          ? showLoaderText()
-          : controller.stockSummaryDataList.isEmpty
-              ? noDataFound(text: kNoDataFound)
-              : ListView.builder(
-                  itemCount: controller.stockSummaryDataList.length,
-                  padding: const EdgeInsets.all(12),
-                  itemBuilder: (context, index) {
-                    var data = controller.stockSummaryDataList[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 14),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          titleWidget(data.companyName ?? ''),
-                          ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: (data.itemData ?? []).length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, subIndex) {
-                              var subCatData = data.itemData?[subIndex];
-                              return Column(
-                                children: [
-                                  subTitleWidget(subCatData?.itemName ?? ''),
-                                  _subListView(subCatData),
-                                ],
-                              );
-                            },
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                );
-    });
-  }
-
-  _subListView(ItemDatum? subCatData) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: kColorWhite,
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
-      margin: const EdgeInsets.symmetric(vertical: 4),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              subListText(kOpeningQty, subCatData?.opqty ?? '0'),
-              subListText(kIWQty, subCatData?.iqty ?? '0'),
-              subListText(kOW, subCatData?.oqty ?? '0'),
-              subListText('$kQty $kBalance', subCatData?.bqty ?? '0'),
-            ],
-          ),
-        ],
-      ),
     );
   }
 }

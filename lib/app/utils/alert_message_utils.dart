@@ -3,47 +3,33 @@ import 'package:cold_storage/app/constants/color_constants.dart';
 import 'package:cold_storage/app/helper/dev/logger_utils.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_text.dart';
 import 'package:cold_storage/app/utils/text_styles/text_styles.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 class AlertMessageUtils {
-  /// show success popup snackBar message
   void showSuccessSnackBar(String message) {
     Get.snackbar(
       'Success',
       message,
       titleText: AppText(
-          text: 'Success',
-          style: TextStyles.kPrimaryRegularInter(colors: kColorWhite)),
+        text: 'Success',
+        style: TextStyles.kPrimarySemiBoldPublicSans(
+          colors: mColorBackground,
+          fontSize: TextStyles.k16FontSize,
+        ),
+      ),
       messageText: AppText(
         text: message,
-        style: TextStyles.kPrimaryRegularInter(colors: kColorWhite),
+        style: TextStyles.kPrimaryRegularPublicSans(
+          colors: mColorBackground,
+          fontSize: TextStyles.k14FontSize,
+        ),
       ),
       snackPosition: SnackPosition.BOTTOM,
       colorText: kColorBlack,
-      backgroundColor: kColorPrimary,
+      backgroundColor: mColorPrimaryText,
       margin: const EdgeInsets.all(12),
-    );
-  }
-
-  /// show error popup snackBar message
-  void showErrorSnackBar(String message) {
-    Get.snackbar(
-      'Error',
-      message,
-      titleText: AppText(
-        text: 'Error',
-        style: TextStyles.kPrimaryRegularInter(colors: kColorRedFF0000),
-      ),
-      messageText: AppText(
-        text: message,
-        style: TextStyles.kPrimaryRegularInter(colors: kColorWhite),
-      ),
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: kColorWhite,
-      margin: const EdgeInsets.only(bottom: 10, left: 8, right: 8),
     );
   }
 
@@ -52,13 +38,16 @@ class AlertMessageUtils {
       message: text,
       messageText: AppText(
         text: text,
-        style: TextStyles.kPrimaryRegularInter(colors: kColorWhite),
+        style: TextStyles.kPrimarySemiBoldPublicSans(
+          colors: mColorBackground,
+        ),
       ),
-      margin: const EdgeInsets.all(8),
+      margin: const EdgeInsets.all(10),
       borderRadius: BorderRadius.circular(8),
-      // leftBarIndicatorColor: Colors.white,
-      duration: const Duration(seconds: 3),
-      backgroundColor: kColorBlack,
+      duration: const Duration(
+        seconds: 3,
+      ),
+      backgroundColor: Colors.red,
     ).show(Get.context!);
   }
 
@@ -67,12 +56,16 @@ class AlertMessageUtils {
       message: text,
       margin: const EdgeInsets.all(8),
       borderRadius: BorderRadius.circular(8),
-      leftBarIndicatorColor: kColorWhite,
-      duration: const Duration(seconds: 3),
+      leftBarIndicatorColor: mColorBackground,
+      duration: const Duration(
+        seconds: 3,
+      ),
       backgroundColor: kColorWhite,
       messageText: AppText(
         text: text,
-        style: TextStyles.kPrimaryRegularInter(colors: kColorGreen48A300),
+        style: TextStyles.kPrimarySemiBoldPublicSans(
+          colors: mColorBackground,
+        ),
       ),
     ).show(context);
   }
@@ -81,32 +74,41 @@ class AlertMessageUtils {
   void showProgressDialog() {
     try {
       showDialog(
-          context: Get.overlayContext!,
-          builder: (_) => WillPopScope(
-                child: Container(
-                  decoration: BoxDecoration(color: kColorWhite.withOpacity(.5)),
-                  child: const SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: SpinKitFadingCircle(
-                      color: kColorBlack,
-                      size: 50.0,
-                    ),
-                  ),
-                ),
-                onWillPop: () async => false,
-              ));
+        context: Get.overlayContext!,
+        builder: (_) => WillPopScope(
+          child: Container(
+            decoration: BoxDecoration(
+              color: kColorWhite.withOpacity(.5),
+            ),
+            child: const SizedBox(
+              width: 60,
+              height: 60,
+              child: SpinKitFadingCircle(
+                color: kColorBlack,
+                size: 50.0,
+              ),
+            ),
+          ),
+          onWillPop: () async => false,
+        ),
+      );
     } catch (e) {
-      LoggerUtils.logException('showProgressDialog', e);
+      LoggerUtils.logException(
+        'showProgressDialog',
+        e,
+      );
     }
   }
 
-  /// hider circular progress bar
+  /// hide circular progress bar
   void hideProgressDialog() {
     try {
       Navigator.of(Get.overlayContext!).pop();
     } catch (ex) {
-      LoggerUtils.logException('hideProgressDialog', ex);
+      LoggerUtils.logException(
+        'hideProgressDialog',
+        ex,
+      );
     }
   }
 }

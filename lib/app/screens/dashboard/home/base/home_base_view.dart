@@ -22,108 +22,92 @@ class HomeBaseView extends GetView<HomeBaseController> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              color: mColorBackground,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
-                vertical: 15,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    text: 'Statistics',
-                    style: TextStyles.kPrimaryBoldPublicSans(
-                      colors: kColorSecondPrimary,
-                      fontSize: TextStyles.k22FontSize,
-                    ),
-                  ),
-                  AppSpaces.v10,
-                  CustomHomeCard(
-                    onTap: () {
-                      if (kRouteInwardStockLedgerBaseView.isNotEmpty) {
-                        controller.navigateToScreen(
-                          page: kRouteInwardStockLedgerBaseView,
-                          arg: null,
-                        );
-                      }
-                    },
-                    bgColor: mColorCard1Primary,
-                    title: kInwardStockLedger,
-                    titleColor: mColorCard1Secondary,
-                    image: mIconInwardStock,
-                  ),
-                  AppSpaces.v4,
-                  CustomHomeCard(
-                    onTap: () {
-                      if (kRouteStockSummaryBaseView.isNotEmpty) {
-                        controller.navigateToScreen(
-                          page: kRouteStockSummaryBaseView,
-                          arg: null,
-                        );
-                      }
-                    },
-                    bgColor: mColorCard2Primary,
-                    title: kStockSummary,
-                    titleColor: mColorCard2Secondary,
-                    image: mIconStockSummary,
-                  ),
-                  AppSpaces.v4,
-                  CustomHomeCard(
-                    onTap: () {
-                      if (kRouteStockLedgerReportBaseView.isNotEmpty) {
-                        controller.navigateToScreen(
-                          page: kRouteStockLedgerReportBaseView,
-                          arg: null,
-                        );
-                      }
-                    },
-                    bgColor: mColorCard3Primary,
-                    title: kStockLedger,
-                    titleColor: mColorCard3Secondary,
-                    image: mIconStockLedger,
-                  ),
-                  AppSpaces.v4,
-                  CustomHomeCard(
-                    onTap: () {
-                      if (kRouteAccountLedgerReportBaseView.isNotEmpty) {
-                        controller.navigateToScreen(
-                          page: kRouteAccountLedgerReportBaseView,
-                          arg: null,
-                        );
-                      }
-                    },
-                    bgColor: mColorCard4Primary,
-                    title: kAccountLedger,
-                    titleColor: mColorCard4Secondary,
-                    image: mIconAccountLedger,
-                  ),
-                ],
-              ),
-            ),
-          ),
           Expanded(
             child: Container(
               width: double.infinity,
               decoration: const BoxDecoration(
                 color: mColorBackground,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 15,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
                 ),
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 15,
+              ),
+              child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    AppText(
+                      text: 'Statistics',
+                      style: TextStyles.kPrimaryBoldPublicSans(
+                        colors: kColorSecondPrimary,
+                        fontSize: TextStyles.k22FontSize,
+                      ),
+                    ),
+                    AppSpaces.v10,
+                    CustomHomeCard(
+                      onTap: () {
+                        if (kRouteInwardStockLedgerBaseView.isNotEmpty) {
+                          controller.navigateToScreen(
+                            page: kRouteInwardStockLedgerBaseView,
+                            arg: null,
+                          );
+                        }
+                      },
+                      bgColor: mColorCard1Primary,
+                      title: kInwardStockLedger,
+                      titleColor: mColorCard1Secondary,
+                      image: mIconInwardStock,
+                    ),
+                    AppSpaces.v4,
+                    CustomHomeCard(
+                      onTap: () {
+                        if (kRouteStockSummaryBaseView.isNotEmpty) {
+                          controller.navigateToScreen(
+                            page: kRouteStockSummaryBaseView,
+                            arg: null,
+                          );
+                        }
+                      },
+                      bgColor: mColorCard2Primary,
+                      title: kStockSummary,
+                      titleColor: mColorCard2Secondary,
+                      image: mIconStockSummary,
+                    ),
+                    AppSpaces.v4,
+                    CustomHomeCard(
+                      onTap: () {
+                        if (kRouteStockLedgerReportBaseView.isNotEmpty) {
+                          controller.navigateToScreen(
+                            page: kRouteStockLedgerReportBaseView,
+                            arg: null,
+                          );
+                        }
+                      },
+                      bgColor: mColorCard3Primary,
+                      title: kStockLedger,
+                      titleColor: mColorCard3Secondary,
+                      image: mIconStockLedger,
+                    ),
+                    AppSpaces.v4,
+                    CustomHomeCard(
+                      onTap: () {
+                        if (kRouteAccountLedgerReportBaseView.isNotEmpty) {
+                          controller.navigateToScreen(
+                            page: kRouteAccountLedgerReportBaseView,
+                            arg: null,
+                          );
+                        }
+                      },
+                      bgColor: mColorCard4Primary,
+                      title: kAccountLedger,
+                      titleColor: mColorCard4Secondary,
+                      image: mIconAccountLedger,
+                    ),
+                    AppSpaces.v10,
                     AppText(
                       text: 'Outwards',
                       style: TextStyles.kPrimaryBoldPublicSans(
@@ -196,8 +180,8 @@ class CustomHomeCard extends StatelessWidget {
         color: bgColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(
-            vertical: 15,
-            horizontal: 20,
+            vertical: 10,
+            horizontal: 12.5,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -208,7 +192,7 @@ class CustomHomeCard extends StatelessWidget {
                   text: title,
                   align: TextAlign.start,
                   style: TextStyles.kPrimarySemiBoldPublicSans(
-                    fontSize: TextStyles.k28FontSize,
+                    fontSize: TextStyles.k22FontSize,
                     colors: titleColor,
                   ).copyWith(
                     height: 1,

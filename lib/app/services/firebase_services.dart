@@ -10,7 +10,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:get/get_utils/get_utils.dart';
 
 class FirebaseServices {
   final _firebaseMessaging = FirebaseMessaging.instance;
@@ -52,7 +51,6 @@ class FirebaseServices {
       FirebaseMessaging.instance.getInitialMessage().then(
         (message) {
           if (message != null) {
-            print('message?.data.toString() ::: ${message.data.toString()}');
             flutterLocalNotificationsPlugin.show(
               message.hashCode,
               message.notification?.title ?? '',
@@ -75,8 +73,6 @@ class FirebaseServices {
       /// handle background listener
       FirebaseMessaging.onMessage.listen(
         (RemoteMessage message) {
-          print('message?.data.toString() ::: ${message.data.toString()}');
-          print('message?.data.toString() ::: ${jsonEncode(message.data)}');
           flutterLocalNotificationsPlugin.show(
             message.hashCode,
             message.notification?.title ?? '',
@@ -121,6 +117,7 @@ class FirebaseServices {
     try {
       FirebaseMessaging fcm = FirebaseMessaging.instance;
 
+      // ignore: unused_local_variable
       NotificationSettings settings = await fcm.requestPermission(
         alert: true,
         announcement: false,
@@ -131,7 +128,6 @@ class FirebaseServices {
         sound: true,
       );
 
-      print('User granted permission: ${settings.authorizationStatus}');
       final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
           FlutterLocalNotificationsPlugin();
 
@@ -146,7 +142,6 @@ class FirebaseServices {
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
         RemoteNotification? notification = message.notification;
         AndroidNotification? android = message.notification?.android;
-        print('onMessage ::: $message');
 
         if (notification != null && android != null) {
           flutterLocalNotificationsPlugin.show(
@@ -168,7 +163,6 @@ class FirebaseServices {
       fcm.getInitialMessage().then(
             (value) => () {
               try {
-                print("................ calleddd ${value?.data}");
                 if (value?.data != null) {
                   handleClick(value!);
                 }
@@ -190,7 +184,6 @@ class FirebaseServices {
   }
 
   Future<void> backgroundHandler(RemoteMessage message) async {
-    print('Handling a background message ${message.messageId}');
     handleClick(message);
   }
 
@@ -198,7 +191,7 @@ class FirebaseServices {
   Future<void> handleClick(RemoteMessage? message) async {
     try {
       var json = message?.data;
-      print('------------ json["type"] :::: $json');
+
       if (json != null) {
         if (json.containsKey('screenName')) {
           if (json['screenName'] == 'loginScreen') {

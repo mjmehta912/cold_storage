@@ -49,7 +49,7 @@ class SelectCompanyView extends GetView<SelectCompanyController> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.3,
+            height: MediaQuery.of(context).size.height * 0.335,
             padding: const EdgeInsets.symmetric(
               horizontal: 24,
               vertical: 36,
@@ -68,7 +68,7 @@ class SelectCompanyView extends GetView<SelectCompanyController> {
                 CarouselSlider(
                   carouselController: carouselController,
                   options: CarouselOptions(
-                    height: 140,
+                    height: 120,
                     enlargeCenterPage: true,
                     autoPlay: true,
                     autoPlayInterval: const Duration(
@@ -149,19 +149,25 @@ class SelectCompanyView extends GetView<SelectCompanyController> {
                     () {
                       return AppDropDown(
                         items: controller.companiesList
-                            .map((element) => element.companyName ?? '')
+                            .map(
+                              (element) => element.companyName ?? '',
+                            )
                             .toList(),
                         onChanged: (String? value) {
-                          controller.selectedCompany.value = controller
-                              .companiesList
-                              .where(
-                                  (e) => (e.companyName ?? '') == (value ?? ''))
-                              .first;
+                          controller.selectedCompany.value =
+                              controller.companiesList
+                                  .where(
+                                    (e) =>
+                                        (e.companyName ?? '') == (value ?? ''),
+                                  )
+                                  .first;
                         },
                         string: (item) =>
                             controller.companiesList
-                                .where((company) =>
-                                    company.companyName.toString() == item)
+                                .where(
+                                  (company) =>
+                                      company.companyName.toString() == item,
+                                )
                                 .firstOrNull
                                 ?.companyName ??
                             '',

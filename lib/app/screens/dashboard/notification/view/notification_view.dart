@@ -11,13 +11,14 @@ import 'package:cold_storage/app/utils/app_widgets/app_spaces.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_text.dart';
 import 'package:cold_storage/app/utils/app_widgets/no_data_found.dart';
 import 'package:cold_storage/app/utils/text_styles/text_styles.dart';
-import 'package:cold_storage/app/utils/ui/app_ui_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class NotificationView extends GetView<NotificationController> {
-  const NotificationView({super.key});
+  const NotificationView({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class NotificationView extends GetView<NotificationController> {
         return false;
       },
       child: AppScaffold(
+        bgColor: mColorBackground,
         appBar: appBarWidget(
           context: context,
           elevation: 0,
@@ -35,10 +37,15 @@ class NotificationView extends GetView<NotificationController> {
             controller.navigateToBack();
           },
           actions: PopupMenuButton(
-            onSelected: (value) {
-              // your logic
-            },
-            color: kColorBackground,
+            onSelected: (value) {},
+            color: mColorAppbar,
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+              side: const BorderSide(
+                color: mColorBlack,
+              ),
+            ),
             itemBuilder: (BuildContext bc) {
               return [
                 PopupMenuItem(
@@ -55,9 +62,9 @@ class NotificationView extends GetView<NotificationController> {
                             : _emptyCircleSvg(),
                         AppText(
                           text: kAll,
-                          style: TextStyles.kPrimaryBoldInter(
-                            fontSize: TextStyles.k24FontSize,
-                            colors: kColorBlack,
+                          style: TextStyles.kPrimaryBoldPublicSans(
+                            fontSize: TextStyles.k22FontSize,
+                            colors: mColorPrimaryText,
                           ),
                         ),
                       ],
@@ -78,9 +85,9 @@ class NotificationView extends GetView<NotificationController> {
                             : _emptyCircleSvg(),
                         AppText(
                           text: kPending,
-                          style: TextStyles.kPrimaryBoldInter(
-                            fontSize: TextStyles.k24FontSize,
-                            colors: kColorBlack,
+                          style: TextStyles.kPrimaryBoldPublicSans(
+                            fontSize: TextStyles.k22FontSize,
+                            colors: mColorPrimaryText,
                           ),
                         ),
                       ],
@@ -93,22 +100,24 @@ class NotificationView extends GetView<NotificationController> {
                     controller.selectedFilterIndex.value = 2;
                     controller.updateListWithFilterData(kAccepted);
                   },
-                  child: Obx(() {
-                    return Row(
-                      children: [
-                        controller.selectedFilterIndex.value == 2
-                            ? _fillCircleSvg()
-                            : _emptyCircleSvg(),
-                        AppText(
-                          text: kAccepted,
-                          style: TextStyles.kPrimaryBoldInter(
-                            fontSize: TextStyles.k24FontSize,
-                            colors: kColorBlack,
+                  child: Obx(
+                    () {
+                      return Row(
+                        children: [
+                          controller.selectedFilterIndex.value == 2
+                              ? _fillCircleSvg()
+                              : _emptyCircleSvg(),
+                          AppText(
+                            text: kAccepted,
+                            style: TextStyles.kPrimaryBoldPublicSans(
+                              fontSize: TextStyles.k22FontSize,
+                              colors: mColorPrimaryText,
+                            ),
                           ),
-                        ),
-                      ],
-                    );
-                  }),
+                        ],
+                      );
+                    },
+                  ),
                 ),
                 PopupMenuItem(
                   value: '/$kRejected',
@@ -116,28 +125,36 @@ class NotificationView extends GetView<NotificationController> {
                     controller.selectedFilterIndex.value = 3;
                     controller.updateListWithFilterData(kRejected);
                   },
-                  child: Obx(() {
-                    return Row(
-                      children: [
-                        controller.selectedFilterIndex.value == 3
-                            ? _fillCircleSvg()
-                            : _emptyCircleSvg(),
-                        AppText(
-                          text: kRejected,
-                          style: TextStyles.kPrimaryBoldInter(
-                            fontSize: TextStyles.k24FontSize,
-                            colors: kColorBlack,
+                  child: Obx(
+                    () {
+                      return Row(
+                        children: [
+                          controller.selectedFilterIndex.value == 3
+                              ? _fillCircleSvg()
+                              : _emptyCircleSvg(),
+                          AppText(
+                            text: kRejected,
+                            style: TextStyles.kPrimaryBoldPublicSans(
+                              fontSize: TextStyles.k22FontSize,
+                              colors: mColorPrimaryText,
+                            ),
                           ),
-                        ),
-                      ],
-                    );
-                  }),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ];
             },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: SvgPicture.asset(kIconFilter),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 15,
+              ),
+              child: Icon(
+                Icons.filter_alt_rounded,
+                size: 25,
+                color: mColorPrimaryText,
+              ),
             ),
           ),
         ),
@@ -155,225 +172,93 @@ class NotificationView extends GetView<NotificationController> {
 
   notificationListView() {
     return controller.filterNotificationDataList.isEmpty
-        ? noDataFound(text: kNoDataFound)
+        ? noDataFound(
+            text: kNoDataFound,
+          )
         : ListView.builder(
             itemCount: controller.filterNotificationDataList.length,
             padding: EdgeInsets.zero,
             itemBuilder: (context, index) {
               var data = controller.filterNotificationDataList[index];
-              // ListTile(
-              //   title: Text(
-              //       'UserName, MobileNo, Reason, Status, Name of the accepted/rejecter. Time'),
-              // ),
-              return Container(
-                padding: const EdgeInsets.all(8),
-                margin: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-                decoration: BoxDecoration(
-                  color: kColorWhite,
-                  borderRadius: AppUIUtils.homeBorderRadius,
-                  border: Border.all(color: kColorSecondPrimary),
-                  boxShadow: [
-                    BoxShadow(
-                      color: kColorBlack.withOpacity(0.25),
-                      spreadRadius: 0,
-                      blurRadius: 4,
-                    ),
-                  ],
+
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
                 ),
-                child: Column(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                child: Card(
+                  elevation: 5,
+                  color: mColorBackground,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: const BorderSide(
+                      color: mColorPrimaryText,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Column(
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(
-                              width: 0.7.screenWidth,
+                              width: 0.55.screenWidth,
                               child: Text(
                                 '${data.userName ?? ''} $kHasChangedDevice',
-                                style:
-                                    TextStyles.kPrimarySemiBoldInter().copyWith(
-                                  color: kColorSecondPrimary,
-                                  fontSize: TextStyles.k16FontSize,
+                                style: TextStyles.kPrimarySemiBoldPublicSans()
+                                    .copyWith(
+                                  color: mColorPrimaryText,
+                                  fontSize: TextStyles.k18FontSize,
+                                  height: 1.25,
                                 ),
                               ),
                             ),
                             Text(
-                              controller.returnStatusText(data.status ?? 0),
-                              style:
-                                  TextStyles.kPrimarySemiBoldInter().copyWith(
+                              controller.returnStatusText(
+                                data.status ?? 0,
+                              ),
+                              style: TextStyles.kPrimarySemiBoldPublicSans()
+                                  .copyWith(
                                 color: controller.returnStatusColor(data),
-                                fontSize: TextStyles.k14FontSize,
+                                fontSize: TextStyles.k18FontSize,
                               ),
                             )
                           ],
                         ),
                         AppSpaces.v4,
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: controller.titleWidth.screenWidth,
-                              child: Text(
-                                '$kReason ',
-                                maxLines: 3,
-                                style:
-                                    TextStyles.kPrimarySemiBoldInter().copyWith(
-                                  color: kColorSecondPrimary,
-                                  fontSize: TextStyles.k14FontSize,
-                                  fontFamily: Font.InterRegular,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: controller.titleValueWidth.screenWidth,
-                              child: Text(
-                                controller.returnText(data.reason),
-                                maxLines: 3,
-                                style:
-                                    TextStyles.kPrimarySemiBoldInter().copyWith(
-                                  color: kColorSecondPrimary,
-                                  fontSize: TextStyles.k14FontSize,
-                                ),
-                              ),
-                            ),
-                          ],
+                        CustomNotificationRow(
+                          title: '$kReason ',
+                          value: controller.returnText(data.reason),
                         ),
-                        AppSpaces.v4,
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: controller.titleWidth.screenWidth,
-                              child: Text(
-                                '$kTimestamp ',
-                                maxLines: 3,
-                                style:
-                                    TextStyles.kPrimarySemiBoldInter().copyWith(
-                                  color: kColorSecondPrimary,
-                                  fontSize: TextStyles.k14FontSize,
-                                  fontFamily: Font.InterRegular,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: controller.titleValueWidth.screenWidth,
-                              child: Text(
-                                data.timeStamp ?? '',
-                                maxLines: 3,
-                                style:
-                                    TextStyles.kPrimarySemiBoldInter().copyWith(
-                                  color: kColorSecondPrimary,
-                                  fontSize: TextStyles.k14FontSize,
-                                ),
-                              ),
-                            ),
-                          ],
+                        AppSpaces.v2,
+                        CustomNotificationRow(
+                          title: '$kTimestamp ',
+                          value: data.timeStamp ?? '',
                         ),
-                        AppSpaces.v4,
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: controller.titleWidth.screenWidth,
-                              child: Text(
-                                '$kMobileNo ',
-                                maxLines: 3,
-                                style:
-                                    TextStyles.kPrimarySemiBoldInter().copyWith(
-                                  color: kColorSecondPrimary,
-                                  fontSize: TextStyles.k14FontSize,
-                                  fontFamily: Font.InterRegular,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: controller.titleValueWidth.screenWidth,
-                              child: Text(
-                                data.mobileNo ?? '',
-                                maxLines: 3,
-                                style:
-                                    TextStyles.kPrimarySemiBoldInter().copyWith(
-                                  color: kColorSecondPrimary,
-                                  fontSize: TextStyles.k14FontSize,
-                                ),
-                              ),
-                            ),
-                          ],
+                        AppSpaces.v2,
+                        CustomNotificationRow(
+                          title: '$kMobileNo ',
+                          value: data.mobileNo ?? '',
                         ),
-                        AppSpaces.v4,
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: controller.titleWidth.screenWidth,
-                              child: Text(
-                                '$kDevice ',
-                                maxLines: 3,
-                                style:
-                                    TextStyles.kPrimarySemiBoldInter().copyWith(
-                                  color: kColorSecondPrimary,
-                                  fontSize: TextStyles.k14FontSize,
-                                  fontFamily: Font.InterRegular,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: controller.titleValueWidth.screenWidth,
-                              child: Text(
-                                controller.returnText(data.mobileModel),
-                                maxLines: 3,
-                                style:
-                                    TextStyles.kPrimarySemiBoldInter().copyWith(
-                                  color: kColorSecondPrimary,
-                                  fontSize: TextStyles.k14FontSize,
-                                ),
-                              ),
-                            ),
-                          ],
+                        AppSpaces.v2,
+                        CustomNotificationRow(
+                          title: '$kDevice ',
+                          value: controller.returnText(data.mobileModel),
                         ),
-                        AppSpaces.v4,
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: controller.titleWidth.screenWidth,
-                              child: Text(
-                                '$kActionBy ',
-                                maxLines: 3,
-                                style:
-                                    TextStyles.kPrimarySemiBoldInter().copyWith(
-                                  color: kColorSecondPrimary,
-                                  fontSize: TextStyles.k14FontSize,
-                                  fontFamily: Font.InterRegular,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: controller.titleValueWidth.screenWidth,
-                              child: Text(
-                                controller.returnText(data.updateBy),
-                                maxLines: 3,
-                                style:
-                                    TextStyles.kPrimarySemiBoldInter().copyWith(
-                                  color: kColorSecondPrimary,
-                                  fontSize: TextStyles.k14FontSize,
-                                ),
-                              ),
-                            ),
-                          ],
+                        AppSpaces.v2,
+                        CustomNotificationRow(
+                          title: '$kActionBy ',
+                          value: controller.returnText(data.updateBy),
                         ),
-                        AppSpaces.v4,
+                        Visibility(
+                          visible: AppConst.companyData.value.userType == '0' &&
+                              data.status == 0,
+                          child: _rejectAndAcceptRow(context, data),
+                        ),
                       ],
                     ),
-                    Visibility(
-                      visible: AppConst.companyData.value.userType == '0' &&
-                          data.status == 0,
-                      child: _rejectAndAcceptRow(context, data),
-                    ),
-                  ],
+                  ),
                 ),
               );
             },
@@ -385,13 +270,13 @@ class NotificationView extends GetView<NotificationController> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         appButton(
-          buttonWidth: 0.20.screenWidth,
-          buttonHeight: 26,
+          buttonWidth: 0.25.screenWidth,
+          buttonHeight: 30,
           buttonColor: kColorRejectButton,
           buttonBorderColor: kColorRejectButton,
           buttonText: kReject,
-          textStyle: TextStyles.kPrimaryBoldInter(
-            fontSize: TextStyles.k12FontSize,
+          textStyle: TextStyles.kPrimaryBoldPublicSans(
+            fontSize: TextStyles.k16FontSize,
             colors: kColorWhite,
           ),
           borderRadius: 8,
@@ -401,13 +286,13 @@ class NotificationView extends GetView<NotificationController> {
         ),
         AppSpaces.h6,
         appButton(
-          buttonWidth: 0.20.screenWidth,
-          buttonHeight: 26,
+          buttonWidth: 0.25.screenWidth,
+          buttonHeight: 30,
           buttonColor: kColorGreen,
           buttonBorderColor: kColorGreen,
           buttonText: kAccept,
-          textStyle: TextStyles.kPrimaryBoldInter(
-            fontSize: TextStyles.k12FontSize,
+          textStyle: TextStyles.kPrimaryBoldPublicSans(
+            fontSize: TextStyles.k16FontSize,
             colors: kColorWhite,
           ),
           borderRadius: 8,
@@ -421,23 +306,75 @@ class NotificationView extends GetView<NotificationController> {
 
   _fillCircleSvg() {
     return Padding(
-      padding: const EdgeInsets.only(right: 4),
+      padding: const EdgeInsets.only(
+        right: 10,
+      ),
       child: SvgPicture.asset(
         kIconFillCircle,
-        height: 22,
-        width: 22,
+        height: 20,
+        width: 20,
+        colorFilter: const ColorFilter.mode(
+          mColorPrimaryText,
+          BlendMode.srcIn,
+        ),
       ),
     );
   }
 
   _emptyCircleSvg() {
     return Padding(
-      padding: const EdgeInsets.only(right: 4),
+      padding: const EdgeInsets.only(
+        right: 10,
+      ),
       child: SvgPicture.asset(
         kIconEmptyCircle,
-        height: 22,
-        width: 22,
+        height: 20,
+        width: 20,
+        colorFilter: const ColorFilter.mode(
+          mColorPrimaryText,
+          BlendMode.srcIn,
+        ),
       ),
+    );
+  }
+}
+
+class CustomNotificationRow extends StatelessWidget {
+  const CustomNotificationRow({
+    super.key,
+    required this.title,
+    required this.value,
+  });
+
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          title,
+          maxLines: 3,
+          style: TextStyles.kPrimarySemiBoldPublicSans().copyWith(
+            color: mColorPrimaryText,
+            fontSize: TextStyles.k14FontSize,
+            height: 1.25,
+          ),
+        ),
+        AppSpaces.h10,
+        Flexible(
+          child: Text(
+            value,
+            maxLines: 3,
+            style: TextStyles.kPrimarySemiBoldPublicSans().copyWith(
+              color: mColorPrimaryText,
+              fontSize: TextStyles.k16FontSize,
+              height: 1.25,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

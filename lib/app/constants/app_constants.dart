@@ -11,12 +11,12 @@ const String kBulkDownload = 'Bulk Download';
 const String kSettings = 'Settings';
 const String kNotifications = 'Notifications';
 
-const String kEnterMobileNo = 'enter mobile number';
+const String kEnterMobileNo = 'Enter mobile number';
 const String kMobileNo = 'Mobile No';
 const String kMobileModel = 'Mobile Model';
-const String kEnterUserName = 'enter user name';
+const String kEnterUserName = 'Enter user name';
 const String kUserName = 'User name';
-const String kEnterPassword = 'enter password';
+const String kEnterPassword = 'Enter password';
 const String kPassword = 'Password';
 const String kForgotPassword = 'Forgot Password';
 const String kLogin = 'Login';
@@ -50,14 +50,14 @@ const String kUser = 'User';
 
 const String kStatistics = 'Statistics';
 const String kOutward = 'Outward';
-const String kInwardStockLedger = 'Inward Stock Ledger';
-const String kStockSummary = 'Stock Summary';
-const String kStockLedger = 'Stock     Ledger';
+const String kInwardStockLedger = 'Inward Stock \nLedger';
+const String kStockSummary = 'Stock \nSummary';
+const String kStockLedger = 'Stock \nLedger';
 const String kStockLedgerReport = 'Stock Ledger Report';
-const String kAccountLedger = 'Account Ledger';
+const String kAccountLedger = 'Account \nLedger';
 const String kAccountLedgerReport = 'Account Ledger Report';
-const String kOutwardRequest = 'Outward Request';
-const String kViewOutwardRequest = 'View  Requests';
+const String kOutwardRequest = 'Outward \nRequest';
+const String kViewOutwardRequest = 'View \nRequests';
 const String kRegisterNewUser = 'Register New User';
 
 /// drawer strings
@@ -138,39 +138,40 @@ const String kColdVehicle = 'Cold Vehicle';
 
 /// closing bal
 const String kIsZero = 'is 0';
-const String kAboveZero = 'above 0';
+const String kAboveZero = 'Above 0';
 
 const String kAreYouSureYouWantToDelete = 'Are you sure you want to delete';
 const String kAreYouSureYouWantToLogout = 'Are you sure you want to logout';
 
 const String kEmptyDoc = 'No Documents Found';
-const String kErrorUserName = 'please enter username';
-const String kErrorPasswordName = 'please enter password';
-const String kErrorOrganizationName = 'please enter organization name';
-const String kErrorEnterReason = 'please enter reason';
+const String kErrorUserName = 'Please enter an username';
+const String kErrorPasswordName = 'Please enter a password';
+const String kErrorOrganizationName = 'Please enter organization name';
+const String kErrorEnterReason = 'Please enter a reason';
 const String kErrorSubscriptionOver =
     'Subscription is over. Please renew the plan.';
 
 /// VALIDATION MESSAGE STRING
-const kEmptyEmail = "Please enter email id";
-const kValidEmail = "Please enter valid email id";
-const kEmptyPassword = "Please enter password";
-const kValidPassword = "Please enter valid password";
-const kEmptyPhone = "Please enter mobile number";
-const kValidPhone = "Please enter valid mobile number";
-const kEmptyOtp = "Please enter otp";
-const kValidOtp = "Please enter valid otp";
+const kEmptyEmail = "Please enter an Email ID";
+const kValidEmail = "Please enter a valid Email ID";
+const kEmptyPassword = "Please enter a password";
+const kValidPassword = "Please enter a valid password";
+const kEmptyPhone = "Please enter a mobile number";
+const kValidPhone = "Please enter a valid mobile number";
+const kEmptyOtp = "Please enter an OTP";
+const kValidOtp = "Please enter a valid OTP";
 const kEmptyName = "Please enter your name";
-const String kPleaseSelectCompany = 'please select company';
-const String kPleaseSelectCustomer = 'please select customer';
-const String kEnterQtyLessThanBalanceQty = 'enter qty less than balance qty';
+const String kPleaseSelectCompany = 'Please select company';
+const String kPleaseSelectCustomer = 'Please select customer';
+const String kEnterQtyLessThanBalanceQty =
+    'Entered quantity should be less than balance quantity';
 
-const String kAreYouSure = 'Are you sure.';
-const String kYouWantToLogOut = 'You want to logout';
+const String kAreYouSure = 'Are you sure?';
+const String kYouWantToLogOut = 'You want to logout?';
 
 const String kRequestForLogin = 'Request for login';
 const String kRequestForLoginSubTxt =
-    'Are you sure? you want to send request to admin!';
+    'Are you sure you want to send request to admin?';
 
 const String kNoDataFound = 'No data found';
 

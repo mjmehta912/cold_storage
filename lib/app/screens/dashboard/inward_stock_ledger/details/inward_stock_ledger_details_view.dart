@@ -28,7 +28,7 @@ class InwardStockLedgerDetailView
           resizeToAvoidBottomInset: true,
           appBar: appBarWidget(
             context: context,
-            titleText: kInwardStockLedger,
+            titleText: 'Inward Stock Ledger',
             onTap: () {
               Get.back();
             },

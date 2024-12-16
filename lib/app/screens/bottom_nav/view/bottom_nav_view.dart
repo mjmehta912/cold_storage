@@ -1,6 +1,5 @@
 import 'package:cold_storage/app/constants/app_constants.dart';
 import 'package:cold_storage/app/constants/color_constants.dart';
-import 'package:cold_storage/app/constants/image_constants.dart';
 import 'package:cold_storage/app/constants/route_constants.dart';
 import 'package:cold_storage/app/screens/bottom_nav/controller/bottom_nav_controller.dart';
 import 'package:cold_storage/app/screens/dashboard/home/base/home_base_view.dart';
@@ -12,7 +11,6 @@ import 'package:cold_storage/app/utils/local_storage/local_storage.dart';
 import 'package:cold_storage/app/utils/text_styles/text_styles.dart';
 import 'package:cold_storage/app/utils/ui/app_ui_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class BottomNavView extends GetView<BottomNavController> {
@@ -37,75 +35,17 @@ class BottomNavView extends GetView<BottomNavController> {
             actions: [
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  vertical: 4,
-                  horizontal: 18,
+                  vertical: 5,
+                  horizontal: 10,
                 ),
                 child: Row(
                   children: [
                     GestureDetector(
                       onTap: () => controller.navigateToNotificationScreen(),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 10,
-                        ),
-                        child: Icon(
-                          Icons.notifications_outlined,
-                          size: 26,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (context) {
-                            return AlertDialog(
-                              backgroundColor: kColorBackground,
-                              surfaceTintColor: kColorBackground,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: AppUIUtils.primaryBorderRadius,
-                              ),
-                              title: AppText(
-                                text: '$kAreYouSure $kYouWantToLogOut?',
-                                style: TextStyles.kPrimaryMediumInter(
-                                    colors: kColorSecondPrimary,
-                                    fontSize: TextStyles.k16FontSize),
-                              ),
-                              actions: [
-                                appButton(
-                                  onPressed: () {
-                                    Get.back();
-                                  },
-                                  buttonText: kNo,
-                                  buttonWidth: 0.24.screenWidth,
-                                  buttonHeight: 32,
-                                  textStyle: TextStyles.kPrimaryBoldInter(
-                                      colors: kColorWhite,
-                                      fontSize: TextStyles.k14FontSize),
-                                ),
-                                appButton(
-                                  onPressed: () {
-                                    Get.find<LocalStorage>().clearAllData();
-                                    Get.offAllNamed(kRouteLoginView);
-                                  },
-                                  buttonText: kLogout,
-                                  buttonWidth: 0.24.screenWidth,
-                                  buttonHeight: 32,
-                                  buttonColor: kColorWhite,
-                                  buttonBorderColor: kColorWhite,
-                                  textStyle: TextStyles.kPrimaryBoldInter(
-                                    colors: kColorRedFF0000,
-                                    fontSize: TextStyles.k14FontSize,
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      child: SvgPicture.asset(
-                        kIconUserProfile,
+                      child: const Icon(
+                        Icons.notifications_outlined,
+                        size: 25,
+                        color: mColorPrimaryText,
                       ),
                     ),
                   ],
@@ -126,7 +66,59 @@ class BottomNavView extends GetView<BottomNavController> {
               },
             ),
           ),
-          drawer: const DrawerWidget(),
+          drawer: DrawerWidget(
+            onTap: () {
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (context) {
+                  return AlertDialog(
+                    backgroundColor: mColorAppbar,
+                    surfaceTintColor: mColorAppbar,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: AppUIUtils.primaryBorderRadius,
+                    ),
+                    title: AppText(
+                      text: '$kAreYouSure $kYouWantToLogOut?',
+                      style: TextStyles.kPrimaryMediumPublicSans(
+                        colors: mColorPrimaryText,
+                        fontSize: TextStyles.k18FontSize,
+                      ),
+                    ),
+                    actions: [
+                      appButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        buttonText: kNo,
+                        buttonWidth: 0.24.screenWidth,
+                        buttonHeight: 32,
+                        textStyle: TextStyles.kPrimaryBoldPublicSans(
+                          colors: mColorPrimaryText,
+                          fontSize: TextStyles.k16FontSize,
+                        ),
+                      ),
+                      appButton(
+                        onPressed: () {
+                          Get.find<LocalStorage>().clearAllData();
+                          Get.offAllNamed(kRouteLoginView);
+                        },
+                        buttonText: kLogout,
+                        buttonWidth: 0.24.screenWidth,
+                        buttonHeight: 32,
+                        buttonColor: mColorPrimaryText,
+                        buttonBorderColor: mColorPrimaryText,
+                        textStyle: TextStyles.kPrimaryBoldPublicSans(
+                          colors: mColorAppbar,
+                          fontSize: TextStyles.k16FontSize,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
           body: const HomeBaseView(),
         );
       },

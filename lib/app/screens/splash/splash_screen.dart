@@ -15,7 +15,9 @@ import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({
+    super.key,
+  });
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -27,7 +29,10 @@ class _SplashScreenState extends State<SplashScreen> {
       try {
         AppConst.packageInfo = await PackageInfo.fromPlatform();
       } catch (e) {
-        LoggerUtils.logException('splash screen : packageInfo', e);
+        LoggerUtils.logException(
+          'splash screen : packageInfo',
+          e,
+        );
       }
       if (Platform.isAndroid) {
         AppConst.androidDeviceInfo = await DeviceInfoPlugin().androidInfo;
@@ -45,7 +50,10 @@ class _SplashScreenState extends State<SplashScreen> {
         Get.offAllNamed(kRouteLoginView);
       }
     } catch (e) {
-      LoggerUtils.logException('navigateToNextScreen', e);
+      LoggerUtils.logException(
+        'navigateToNextScreen',
+        e,
+      );
     }
   }
 
@@ -63,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
-      bgColor: kColorSecondPrimary,
+      bgColor: mColorAppbar,
       body: Padding(
         padding: const EdgeInsets.only(left: 16),
         child: Column(
@@ -72,16 +80,16 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             AppText(
               text: appName,
-              style: TextStyles.kPrimaryBoldInter(
+              style: TextStyles.kPrimaryBoldPublicSans(
                 fontSize: TextStyles.k36FontSize,
-                colors: kColorBackground,
+                colors: mColorPrimaryText,
               ),
             ),
             AppText(
               text: kSplashScreenText,
-              style: TextStyles.kPrimaryRegularInter(
+              style: TextStyles.kPrimaryRegularPublicSans(
                 fontSize: TextStyles.k36FontSize,
-                colors: kColorBackground,
+                colors: mColorPrimaryText,
               ),
             ),
           ],

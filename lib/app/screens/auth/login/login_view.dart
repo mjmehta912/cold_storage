@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_options.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cold_storage/app/constants/app_constants.dart';
 import 'package:cold_storage/app/constants/color_constants.dart';
@@ -55,7 +54,7 @@ class LoginView extends GetView<LoginController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: MediaQuery.of(context).size.height * 0.335,
               padding: const EdgeInsets.symmetric(
                 horizontal: 24,
                 vertical: 36,
@@ -74,7 +73,7 @@ class LoginView extends GetView<LoginController> {
                   CarouselSlider(
                     carouselController: carouselController,
                     options: CarouselOptions(
-                      height: 140,
+                      height: 120,
                       enlargeCenterPage: true,
                       autoPlay: true,
                       autoPlayInterval: const Duration(
@@ -281,19 +280,19 @@ class CustomCarouselCard extends StatelessWidget {
       color: bgColor,
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: 16,
-          horizontal: 24,
+          vertical: 10,
+          horizontal: 15,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.4,
+              width: MediaQuery.of(context).size.width * 0.39,
               child: AppText(
                 text: title,
                 align: TextAlign.start,
                 style: TextStyles.kPrimarySemiBoldPublicSans(
-                  fontSize: TextStyles.k30FontSize,
+                  fontSize: TextStyles.k28FontSize,
                   colors: titleColor,
                 ).copyWith(
                   height: 1,

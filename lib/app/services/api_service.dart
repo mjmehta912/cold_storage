@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-
   Future<http.Response?> postRequest({
     required String endPoint,
     dynamic requestModel,
@@ -68,7 +67,7 @@ class ApiService {
     var headers = await HeaderData().headers();
     debugPrint("headers :: $headers");
 
-    var domainUrl =baseUrl?? ApiConstants.baseUrl;
+    var domainUrl = baseUrl ?? ApiConstants.baseUrl;
 
     var url = Uri.parse('$domainUrl$endPoint');
 
@@ -109,8 +108,6 @@ class ApiService {
 
     var headers = await HeaderData().headers();
     var domainUrl = ApiConstants.baseUrl;
-
-    print('header :: $headers');
 
     var url = Uri.parse('$domainUrl$endPoint');
 

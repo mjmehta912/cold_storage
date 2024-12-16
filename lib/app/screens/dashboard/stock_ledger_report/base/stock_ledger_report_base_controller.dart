@@ -15,8 +15,10 @@ import 'package:get/get.dart';
 class StockLedgerReportBaseController extends GetxController {
   RxBool isComingFromHome = false.obs;
 
-  EdgeInsets textFieldTitlePadding =
-      const EdgeInsets.symmetric(horizontal: 14, vertical: 2);
+  EdgeInsets textFieldTitlePadding = const EdgeInsets.symmetric(
+    horizontal: 14,
+    vertical: 2,
+  );
 
   TextEditingController dateFromController = TextEditingController();
   TextEditingController dateToController = TextEditingController();
@@ -29,31 +31,41 @@ class StockLedgerReportBaseController extends GetxController {
   Rx<DateTime> dateTo = DateTime.now().obs;
 
   /// items
-  RxList<ItemData> itemsList = List<ItemData>.empty(growable: true).obs;
+  RxList<ItemData> itemsList = List<ItemData>.empty(
+    growable: true,
+  ).obs;
   List<ItemData> selectedItems = [];
 
   /// customers
-  RxList<CustomerData> customers = List<CustomerData>.empty(growable: true).obs;
-  List<CustomerData> selectedCustomers = [];
+  RxList<CustomerData> customers = List<CustomerData>.empty(
+    growable: true,
+  ).obs;
+  RxList<CustomerData> selectedCustomers = <CustomerData>[].obs;
 
   /// view by
-  RxList<ViewByModel> viewByList = List<ViewByModel>.empty(growable: true).obs;
+  RxList<ViewByModel> viewByList = List<ViewByModel>.empty(
+    growable: true,
+  ).obs;
   ViewByModel? selectedViewBy;
 
   onIndexChange() {
     try {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-        Get.lazyPut(() => GeneralRepo(), fenix: true);
-        await getCustomerDataFromServer();
-      });
+      WidgetsBinding.instance.addPostFrameCallback(
+        (timeStamp) async {
+          Get.lazyPut(() => GeneralRepo(), fenix: true);
+          await getCustomerDataFromServer();
+        },
+      );
     } catch (e) {
-      LoggerUtils.logException('onIndexChange stock ledge report base', e);
+      LoggerUtils.logException(
+        'onIndexChange stock ledge report base',
+        e,
+      );
     }
   }
 
   @override
   void onInit() {
-    // TODO: implement onInit
     dateFromController.text = dateFrom.value.dateWithYear;
     dateToController.text = dateTo.value.dateWithYear;
     viewByList.addAll(ViewByModel.viewByList);

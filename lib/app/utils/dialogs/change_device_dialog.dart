@@ -6,6 +6,7 @@ import 'package:cold_storage/app/utils/alert_message_utils.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_button.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_size_extension.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_spaces.dart';
+import 'package:cold_storage/app/utils/app_widgets/app_text.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_text_field.dart';
 import 'package:cold_storage/app/utils/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -19,90 +20,85 @@ void showChangeDeviceReqDialog(BuildContext context, LoginRequestModel data) {
     builder: (context) {
       remarkController.clear();
       return Dialog(
-        backgroundColor: kColorBackground,
-        surfaceTintColor: kColorBackground,
-        insetPadding: const EdgeInsets.symmetric(horizontal: 14),
+        backgroundColor: mColorAppbar,
+        surfaceTintColor: mColorAppbar,
+        insetPadding: const EdgeInsets.symmetric(
+          horizontal: 15,
+        ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(0),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              _dialogHeader(context),
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: '$kYourReqWillBeSendToAdmin.',
+                      style: TextStyles.kPrimarySemiBoldPublicSans(
+                        fontSize: TextStyles.k18FontSize,
+                        colors: mColorPrimaryText,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               AppSpaces.v16,
-              _dialogRemarkTextField(context),
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: AppText(
+                  text: 'Remarks',
+                  style: TextStyles.kPrimaryBoldPublicSans(
+                    colors: mColorPrimaryText,
+                    fontSize: TextStyles.k18FontSize,
+                  ).copyWith(
+                    height: 1.25,
+                  ),
+                ),
+              ),
+              AppTextField(
+                controller: remarkController,
+                maxLines: 5,
+                minLines: 2,
+              ),
               AppSpaces.v16,
-              appButton(
-                onPressed: () async {
-                  if (remarkController.text.trim().isNotEmpty) {
-                    Get.back();
-                    data.reason = remarkController.text.trim();
-                    await AuthRepo()
-                        .changeDeviceRequestApiCall(requestModel: data);
-                  } else {
-                    Get.find<AlertMessageUtils>()
-                        .showErrorSnackBar1(kErrorEnterReason);
-                  }
-                },
-                buttonWidth: 0.4.screenWidth,
-                buttonText: kSubmit,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  appButton(
+                    onPressed: () async {
+                      if (remarkController.text.trim().isNotEmpty) {
+                        Get.back();
+                        data.reason = remarkController.text.trim();
+                        await AuthRepo()
+                            .changeDeviceRequestApiCall(requestModel: data);
+                      } else {
+                        Get.find<AlertMessageUtils>()
+                            .showErrorSnackBar1(kErrorEnterReason);
+                      }
+                    },
+                    buttonWidth: 0.25.screenWidth,
+                    buttonHeight: 0.035.screenHeight,
+                    buttonColor: kColorRejectButton,
+                    buttonBorderColor: kColorRejectButton,
+                    buttonText: kSubmit,
+                    textStyle: TextStyles.kPrimaryBoldPublicSans(
+                      fontSize: TextStyles.k16FontSize,
+                      colors: mColorBackground,
+                    ),
+                    borderRadius: 10,
+                  ),
+                ],
               ),
             ],
           ),
         ),
       );
     },
-  );
-}
-
-_dialogHeader(BuildContext context) {
-  return RichText(
-    textAlign: TextAlign.center,
-    text: TextSpan(
-      children: [
-        TextSpan(
-          text: '$kYourReqWillBeSendToAdmin.',
-          style: TextStyles.kPrimaryRegularInter(
-            fontSize: TextStyles.k14FontSize,
-            colors: kColorBlack,
-          ),
-        ),
-        // TextSpan(
-        //   text: 'CustomerName ',
-        //   style: TextStyles.kPrimaryBoldInter(
-        //     fontSize: TextStyles.k14FontSize,
-        //     colors: kColorBlack,
-        //   ),
-        // ),
-        // TextSpan(
-        //   text: kRejectedReqText2,
-        //   style: TextStyles.kPrimaryRegularInter(
-        //     fontSize: TextStyles.k14FontSize,
-        //     colors: kColorBlack,
-        //   ),
-        // ),
-        // TextSpan(
-        //   text: ' A0135-1/330',
-        //   style: TextStyles.kPrimaryBoldInter(
-        //     fontSize: TextStyles.k14FontSize,
-        //     colors: kColorBlack,
-        //   ),
-        // ),
-      ],
-    ),
-  );
-}
-
-_dialogRemarkTextField(BuildContext context) {
-  return AppTextField(
-    controller: remarkController,
-    hintText: '$kReason...',
-    labelStyle: TextStyles.kPrimaryRegularInter(
-      colors: kColorD9D9D9,
-    ),
-    maxLines: 5,
-    minLines: 2,
   );
 }

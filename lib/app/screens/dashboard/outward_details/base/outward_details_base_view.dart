@@ -13,17 +13,19 @@ import 'package:cold_storage/app/utils/app_widgets/app_text_field.dart';
 import 'package:cold_storage/app/utils/app_widgets/no_data_found.dart';
 import 'package:cold_storage/app/utils/app_widgets/show_loader_text.dart';
 import 'package:cold_storage/app/utils/text_styles/text_styles.dart';
-import 'package:cold_storage/app/utils/ui/app_ui_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class OutwardDetailsBaseView extends GetView<OutwardDetailsBaseController> {
-  const OutwardDetailsBaseView({super.key});
+  const OutwardDetailsBaseView({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AppScaffold(
+      bgColor: mColorAppbar,
       appBar: appBarWidget(
         context: context,
         titleText: kOutwardDetails,
@@ -31,10 +33,16 @@ class OutwardDetailsBaseView extends GetView<OutwardDetailsBaseController> {
           Get.back();
         },
         actions: PopupMenuButton(
-          onSelected: (value) {
-            // your logic
-          },
-          color: kColorBackground,
+          position: PopupMenuPosition.under,
+          onSelected: (value) {},
+          color: mColorCard6Primary,
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: const BorderSide(
+              color: mColorCard6Secondary,
+            ),
+          ),
           itemBuilder: (BuildContext bc) {
             return [
               PopupMenuItem(
@@ -43,22 +51,24 @@ class OutwardDetailsBaseView extends GetView<OutwardDetailsBaseController> {
                   controller.selectedFilterIndex.value = 0;
                   controller.updateListWithFilterData(kAll);
                 },
-                child: Obx(() {
-                  return Row(
-                    children: [
-                      controller.selectedFilterIndex.value == 0
-                          ? _fillCircleSvg()
-                          : _emptyCircleSvg(),
-                      AppText(
-                        text: kAll,
-                        style: TextStyles.kPrimaryBoldInter(
-                          fontSize: TextStyles.k24FontSize,
-                          colors: kColorBlack,
+                child: Obx(
+                  () {
+                    return Row(
+                      children: [
+                        controller.selectedFilterIndex.value == 0
+                            ? _fillCircleSvg()
+                            : _emptyCircleSvg(),
+                        AppText(
+                          text: kAll,
+                          style: TextStyles.kPrimaryBoldPublicSans(
+                            fontSize: TextStyles.k22FontSize,
+                            colors: mColorPrimaryText,
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                }),
+                      ],
+                    );
+                  },
+                ),
               ),
               PopupMenuItem(
                 value: '/$kPending',
@@ -66,22 +76,24 @@ class OutwardDetailsBaseView extends GetView<OutwardDetailsBaseController> {
                   controller.selectedFilterIndex.value = 1;
                   controller.updateListWithFilterData(kPending);
                 },
-                child: Obx(() {
-                  return Row(
-                    children: [
-                      controller.selectedFilterIndex.value == 1
-                          ? _fillCircleSvg()
-                          : _emptyCircleSvg(),
-                      AppText(
-                        text: kPending,
-                        style: TextStyles.kPrimaryBoldInter(
-                          fontSize: TextStyles.k24FontSize,
-                          colors: kColorBlack,
+                child: Obx(
+                  () {
+                    return Row(
+                      children: [
+                        controller.selectedFilterIndex.value == 1
+                            ? _fillCircleSvg()
+                            : _emptyCircleSvg(),
+                        AppText(
+                          text: kPending,
+                          style: TextStyles.kPrimaryBoldPublicSans(
+                            fontSize: TextStyles.k22FontSize,
+                            colors: mColorPrimaryText,
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                }),
+                      ],
+                    );
+                  },
+                ),
               ),
               PopupMenuItem(
                 value: '/$kAccepted',
@@ -89,22 +101,24 @@ class OutwardDetailsBaseView extends GetView<OutwardDetailsBaseController> {
                   controller.selectedFilterIndex.value = 2;
                   controller.updateListWithFilterData(kAccepted);
                 },
-                child: Obx(() {
-                  return Row(
-                    children: [
-                      controller.selectedFilterIndex.value == 2
-                          ? _fillCircleSvg()
-                          : _emptyCircleSvg(),
-                      AppText(
-                        text: kAccepted,
-                        style: TextStyles.kPrimaryBoldInter(
-                          fontSize: TextStyles.k24FontSize,
-                          colors: kColorBlack,
+                child: Obx(
+                  () {
+                    return Row(
+                      children: [
+                        controller.selectedFilterIndex.value == 2
+                            ? _fillCircleSvg()
+                            : _emptyCircleSvg(),
+                        AppText(
+                          text: kAccepted,
+                          style: TextStyles.kPrimaryBoldPublicSans(
+                            fontSize: TextStyles.k22FontSize,
+                            colors: mColorPrimaryText,
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                }),
+                      ],
+                    );
+                  },
+                ),
               ),
               PopupMenuItem(
                 value: '/$kRejected',
@@ -112,180 +126,240 @@ class OutwardDetailsBaseView extends GetView<OutwardDetailsBaseController> {
                   controller.selectedFilterIndex.value = 3;
                   controller.updateListWithFilterData(kRejected);
                 },
-                child: Obx(() {
-                  return Row(
-                    children: [
-                      controller.selectedFilterIndex.value == 3
-                          ? _fillCircleSvg()
-                          : _emptyCircleSvg(),
-                      AppText(
-                        text: kRejected,
-                        style: TextStyles.kPrimaryBoldInter(
-                          fontSize: TextStyles.k24FontSize,
-                          colors: kColorBlack,
+                child: Obx(
+                  () {
+                    return Row(
+                      children: [
+                        controller.selectedFilterIndex.value == 3
+                            ? _fillCircleSvg()
+                            : _emptyCircleSvg(),
+                        AppText(
+                          text: kRejected,
+                          style: TextStyles.kPrimaryBoldPublicSans(
+                            fontSize: TextStyles.k22FontSize,
+                            colors: mColorPrimaryText,
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                }),
+                      ],
+                    );
+                  },
+                ),
               ),
             ];
           },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: SvgPicture.asset(kIconFilter),
-          ),
-        ),
-      ),
-      body: _outwardDetailsListView(),
-    );
-  }
-
-  _outwardDetailsListView() {
-    return Obx(
-      () {
-        return controller.isDataLoading.value
-            ? showLoaderText()
-            : controller.filterOutwardDetailsList.isEmpty
-                ? noDataFound(text: kNoDataFound)
-                : ListView.builder(
-                    itemCount: controller.filterOutwardDetailsList.length,
-                    itemBuilder: (context, index) {
-                      var data = controller.filterOutwardDetailsList[index];
-                      return Container(
-                        padding: const EdgeInsets.all(8),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 14, vertical: 6),
-                        decoration: BoxDecoration(
-                          color: kColorWhite,
-                          borderRadius: AppUIUtils.homeBorderRadius,
-                          border: Border.all(color: kColorSecondPrimary),
-                          boxShadow: [
-                            BoxShadow(
-                              color: kColorBlack.withOpacity(0.25),
-                              spreadRadius: 0,
-                              blurRadius: 4,
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          children: [
-                            Visibility(
-                              visible:
-                                  controller.isViewRequest.value == false &&
-                                      data.status != 'Pending',
-                              child: _statusWidget(context, data),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    _rowWidget(
-                                        title: '$kRequestNo.',
-                                        value: data.invno ?? '0'),
-                                    AppSpaces.v2,
-                                    _rowWidget(
-                                        title: kDeliveryDate,
-                                        value: data.date ?? ''),
-                                    AppSpaces.v2,
-                                    _rowWidget(
-                                        title: kTime,
-                                        value: data.outwardTime ?? ''),
-                                    AppSpaces.v2,
-                                    _rowWidget(
-                                        title: kItem, value: data.iname ?? ''),
-                                    AppSpaces.v2,
-                                    _rowWidget(
-                                        title: '$kInwardNo.',
-                                        value: data.inwno ?? '0'),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    _rowWidget(
-                                        title: '$kLotNo.',
-                                        value: data.lotno ?? '0'),
-                                    AppSpaces.v2,
-                                    _rowWidget(
-                                        title: kQty, value: data.qty ?? '0'),
-                                    AppSpaces.v2,
-                                    _rowWidget(
-                                        title: kBalance,
-                                        value: data.balqty ?? '0'),
-                                    AppSpaces.v2,
-                                    _rowWidget(
-                                        title: kEntryDate,
-                                        value: data.entryDate ?? ''),
-                                    AppSpaces.v2,
-                                    _rowWidget(
-                                        title: kVehicleType,
-                                        value: data.vehicleType ?? ''),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            AppSpaces.v2,
-                            Visibility(
-                              visible: controller.isViewRequest.value,
-                              child: _statusWidget(context, data),
-                            ),
-                            Obx(
-                              () {
-                                return Visibility(
-                                  visible:
-                                      controller.isViewRequest.value == false &&
-                                          data.status == 'Pending',
-                                  child: _rejectAndAcceptRow(context, data),
-                                );
-                              },
-                            ),
-                            // Obx(
-                            //   () {
-                            //     return controller.isViewRequest.value
-                            //         ? _statusWidget(context, data)
-                            //         : _rejectAndAcceptRow(context, data);
-                            //   },
-                            // ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-      },
-    );
-  }
-
-  _rowWidget({required String title, required String value}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 0.22.screenWidth,
-          child: AppText(
-            text: title,
-            style: TextStyles.kPrimaryRegularInter(
-              fontWeight: FontWeight.w400,
-              colors: kColorSecondPrimary,
-              fontSize: TextStyles.k12FontSize,
+          child: const Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+            child: Icon(
+              Icons.filter_alt_rounded,
+              size: 25,
+              color: mColorPrimaryText,
             ),
           ),
         ),
-        // AppSpaces.h12,
-        SizedBox(
-          width: 0.22.screenWidth,
+      ),
+      body: Obx(
+        () {
+          return controller.isDataLoading.value
+              ? showLoaderText()
+              : controller.filterOutwardDetailsList.isEmpty
+                  ? noDataFound(
+                      text: kNoDataFound,
+                    )
+                  : ListView.builder(
+                      itemCount: controller.filterOutwardDetailsList.length,
+                      itemBuilder: (context, index) {
+                        var data = controller.filterOutwardDetailsList[index];
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 5,
+                          ),
+                          child: Card(
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: const BorderSide(
+                                color: mColorCard6Secondary,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 10,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.55,
+                                        child: AppText(
+                                          text: data.pname ?? '',
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style:
+                                              TextStyles.kPrimaryBoldPublicSans(
+                                            fontSize: TextStyles.k18FontSize,
+                                            colors: mColorPrimaryText,
+                                          ).copyWith(
+                                            height: 1.25,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.3,
+                                        child: AppText(
+                                          text: controller.isViewRequest.value
+                                              ? data.status!
+                                              : data.status != 'Pending'
+                                                  ? data.status!
+                                                  : '',
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style:
+                                              TextStyles.kPrimaryBoldPublicSans(
+                                            fontSize: TextStyles.k18FontSize,
+                                            colors: controller
+                                                .returnStatusColor(data),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  AppSpaces.v4,
+                                  _rowWidget(
+                                    title: '$kRequestNo.',
+                                    value: data.invno ?? '0',
+                                  ),
+                                  AppSpaces.v2,
+                                  _rowWidget(
+                                    title: kItem,
+                                    value: data.iname ?? '',
+                                  ),
+                                  AppSpaces.v2,
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      _rowWidget(
+                                        title: kDeliveryDate,
+                                        value: data.date ?? '',
+                                      ),
+                                      _rowWidget(
+                                        title: kTime,
+                                        value: data.outwardTime ?? '',
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      AppSpaces.v2,
+                                      _rowWidget(
+                                        title: '$kInwardNo.',
+                                        value: data.inwno ?? '0',
+                                      ),
+                                      _rowWidget(
+                                        title: '$kLotNo.',
+                                        value: data.lotno ?? '0',
+                                      ),
+                                      AppSpaces.v2,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          _rowWidget(
+                                            title: kQty,
+                                            value: data.qty ?? '0',
+                                          ),
+                                          _rowWidget(
+                                            title: kBalance,
+                                            value: data.balqty ?? '0',
+                                          ),
+                                        ],
+                                      ),
+                                      AppSpaces.v2,
+                                      _rowWidget(
+                                        title: kVehicleType,
+                                        value: data.vehicleType ?? '',
+                                      ),
+                                      AppSpaces.v2,
+                                      _rowWidget(
+                                        title: kEntryDate,
+                                        value: data.entryDate ?? '',
+                                      ),
+                                    ],
+                                  ),
+                                  if (AppConst.companyData.value.userType ==
+                                          '0' &&
+                                      data.status == 'Pending')
+                                    AppSpaces.v10,
+                                  Obx(
+                                    () {
+                                      return Visibility(
+                                        visible: AppConst.companyData.value
+                                                    .userType ==
+                                                '0' &&
+                                            data.status == 'Pending',
+                                        child:
+                                            _rejectAndAcceptRow(context, data),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+        },
+      ),
+    );
+  }
+
+  _rowWidget({
+    required String title,
+    required String value,
+  }) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        AppText(
+          text: title,
+          style: TextStyles.kPrimaryRegularPublicSans(
+            fontWeight: FontWeight.w400,
+            colors: mColorPrimaryText,
+            fontSize: TextStyles.k14FontSize,
+          ).copyWith(
+            height: 1.25,
+          ),
+        ),
+        AppSpaces.h10,
+        Flexible(
           child: AppText(
             text: value,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: TextStyles.kPrimaryBoldInter(
-              fontSize: TextStyles.k12FontSize,
-              colors: kColorSecondPrimary,
+            style: TextStyles.kPrimaryBoldPublicSans(
+              fontSize: TextStyles.k14FontSize,
+              colors: mColorPrimaryText,
+            ).copyWith(
+              height: 1.25,
             ),
           ),
         ),
@@ -293,98 +367,42 @@ class OutwardDetailsBaseView extends GetView<OutwardDetailsBaseController> {
     );
   }
 
-  _statusWidget(BuildContext context, OutwardDetailsData data) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 0.22.screenWidth,
-          child: AppText(
-            text: kStatus,
-            style: TextStyles.kPrimaryRegularInter(
-              fontWeight: FontWeight.w400,
-              colors: kColorSecondPrimary,
-              fontSize: TextStyles.k12FontSize,
-            ),
-          ),
-        ),
-        // AppSpaces.h12,
-        AppText(
-          text: data.status ?? '',
-          maxLines: 2,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyles.kPrimaryBoldInter(
-            fontSize: TextStyles.k12FontSize,
-            colors: controller.returnStatusColor(data),
-          ),
-        ),
-      ],
-    );
-  }
-
-  _rejectAndAcceptRow(BuildContext context, OutwardDetailsData data) {
+  _rejectAndAcceptRow(
+    BuildContext context,
+    OutwardDetailsData data,
+  ) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 0.22.screenWidth,
-              child: AppText(
-                text: kCustomer,
-                style: TextStyles.kPrimaryRegularInter(
-                  fontWeight: FontWeight.w400,
-                  colors: kColorSecondPrimary,
-                ),
-              ),
-            ),
-            // AppSpaces.h12,
-            SizedBox(
-              width: 0.32.screenWidth,
-              child: AppText(
-                text: data.pname ?? '',
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyles.kPrimaryBoldInter(
-                  fontSize: TextStyles.k12FontSize,
-                  colors: kColorSecondPrimary,
-                ),
-              ),
-            ),
-          ],
-        ),
-        Row(
           children: [
             appButton(
-              buttonWidth: 0.14.screenWidth,
-              buttonHeight: 22,
+              buttonWidth: 0.25.screenWidth,
+              buttonHeight: 0.035.screenHeight,
               buttonColor: kColorRejectButton,
               buttonBorderColor: kColorRejectButton,
               buttonText: kReject,
-              textStyle: TextStyles.kPrimaryBoldInter(
-                fontSize: TextStyles.k10FontSize,
-                colors: kColorBackground,
+              textStyle: TextStyles.kPrimaryBoldPublicSans(
+                fontSize: TextStyles.k16FontSize,
+                colors: mColorBackground,
               ),
-              borderRadius: 8,
+              borderRadius: 10,
               onPressed: () {
                 _showRejectDialog(context, data);
               },
             ),
-            AppSpaces.h6,
+            AppSpaces.h10,
             appButton(
-              buttonWidth: 0.14.screenWidth,
-              buttonHeight: 22,
+              buttonWidth: 0.25.screenWidth,
+              buttonHeight: 0.035.screenHeight,
               buttonColor: kColorGreen,
               buttonBorderColor: kColorGreen,
               buttonText: kAccept,
-              textStyle: TextStyles.kPrimaryBoldInter(
-                fontSize: TextStyles.k10FontSize,
-                colors: kColorBackground,
+              textStyle: TextStyles.kPrimaryBoldPublicSans(
+                fontSize: TextStyles.k16FontSize,
+                colors: mColorBackground,
               ),
-              borderRadius: 8,
+              borderRadius: 10,
               onPressed: () {
                 controller.rejectReqApiCall(data, 1);
               },
@@ -395,33 +413,105 @@ class OutwardDetailsBaseView extends GetView<OutwardDetailsBaseController> {
     );
   }
 
-  void _showRejectDialog(BuildContext context, OutwardDetailsData data) {
+  void _showRejectDialog(
+    BuildContext context,
+    OutwardDetailsData data,
+  ) {
     showDialog(
       context: context,
       builder: (context) {
         return Dialog(
-          backgroundColor: kColorBackground,
-          surfaceTintColor: kColorBackground,
-          insetPadding: const EdgeInsets.symmetric(horizontal: 14),
+          backgroundColor: mColorCard6Primary,
+          surfaceTintColor: mColorCard6Primary,
+          insetPadding: const EdgeInsets.symmetric(
+            horizontal: 14,
+          ),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0),
+            borderRadius: BorderRadius.circular(10),
+            side: const BorderSide(
+              color: mColorCard6Secondary,
+            ),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                _dialogHeader(context),
+                RichText(
+                  textAlign: TextAlign.left,
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: kRejectedReqText,
+                        style: TextStyles.kPrimaryMediumPublicSans(
+                          fontSize: TextStyles.k16FontSize,
+                          colors: mColorPrimaryText,
+                        ),
+                      ),
+                      TextSpan(
+                        text: '${data.pname} ',
+                        style: TextStyles.kPrimaryBoldPublicSans(
+                          fontSize: TextStyles.k16FontSize,
+                          colors: mColorPrimaryText,
+                        ),
+                      ),
+                      TextSpan(
+                        text: kRejectedReqText2,
+                        style: TextStyles.kPrimaryMediumPublicSans(
+                          fontSize: TextStyles.k16FontSize,
+                          colors: mColorPrimaryText,
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' ${data.lotno} ',
+                        style: TextStyles.kPrimaryBoldPublicSans(
+                          fontSize: TextStyles.k16FontSize,
+                          colors: mColorPrimaryText,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 AppSpaces.v16,
-                _dialogRemarkTextField(context),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      AppText(
+                        text: 'Remarks',
+                        style: TextStyles.kPrimaryBoldPublicSans(
+                          colors: mColorPrimaryText,
+                          fontSize: TextStyles.k18FontSize,
+                        ).copyWith(
+                          height: 1.25,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                AppTextField(
+                  controller: controller.remarkController,
+                  maxLines: 5,
+                  minLines: 2,
+                ),
                 AppSpaces.v16,
                 appButton(
+                  buttonWidth: 0.25.screenWidth,
+                  buttonHeight: 0.035.screenHeight,
+                  buttonColor: kColorRejectButton,
+                  buttonBorderColor: kColorRejectButton,
+                  buttonText: kReject,
+                  textStyle: TextStyles.kPrimaryBoldPublicSans(
+                    fontSize: TextStyles.k16FontSize,
+                    colors: mColorBackground,
+                  ),
+                  borderRadius: 10,
                   onPressed: () {
                     Get.back();
                     controller.rejectReqApiCall(data, 2);
                   },
-                  buttonWidth: 0.4.screenWidth,
-                  buttonText: kReject,
                 ),
               ],
             ),
@@ -431,74 +521,36 @@ class OutwardDetailsBaseView extends GetView<OutwardDetailsBaseController> {
     );
   }
 
-  _dialogHeader(BuildContext context) {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-        children: [
-          TextSpan(
-            text: kRejectedReqText,
-            style: TextStyles.kPrimaryRegularInter(
-              fontSize: TextStyles.k14FontSize,
-              colors: kColorBlack,
-            ),
-          ),
-          TextSpan(
-            text: 'CustomerName ',
-            style: TextStyles.kPrimaryBoldInter(
-              fontSize: TextStyles.k14FontSize,
-              colors: kColorBlack,
-            ),
-          ),
-          TextSpan(
-            text: kRejectedReqText2,
-            style: TextStyles.kPrimaryRegularInter(
-              fontSize: TextStyles.k14FontSize,
-              colors: kColorBlack,
-            ),
-          ),
-          TextSpan(
-            text: ' A0135-1/330',
-            style: TextStyles.kPrimaryBoldInter(
-              fontSize: TextStyles.k14FontSize,
-              colors: kColorBlack,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  _dialogRemarkTextField(BuildContext context) {
-    return AppTextField(
-      controller: controller.remarkController,
-      labelText: '$kRemarksHere...',
-      labelStyle: TextStyles.kPrimaryRegularInter(
-        colors: kColorD9D9D9,
-      ),
-      maxLines: 5,
-      minLines: 2,
-    );
-  }
-
   _fillCircleSvg() {
     return Padding(
-      padding: const EdgeInsets.only(right: 4),
+      padding: const EdgeInsets.only(
+        right: 10,
+      ),
       child: SvgPicture.asset(
         kIconFillCircle,
-        height: 22,
-        width: 22,
+        height: 20,
+        width: 20,
+        colorFilter: const ColorFilter.mode(
+          mColorCard6Secondary,
+          BlendMode.srcIn,
+        ),
       ),
     );
   }
 
   _emptyCircleSvg() {
     return Padding(
-      padding: const EdgeInsets.only(right: 4),
+      padding: const EdgeInsets.only(
+        right: 10,
+      ),
       child: SvgPicture.asset(
         kIconEmptyCircle,
-        height: 22,
-        width: 22,
+        height: 20,
+        width: 20,
+        colorFilter: const ColorFilter.mode(
+          mColorCard6Secondary,
+          BlendMode.srcIn,
+        ),
       ),
     );
   }
