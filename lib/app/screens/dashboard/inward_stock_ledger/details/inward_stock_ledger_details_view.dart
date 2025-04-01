@@ -35,7 +35,8 @@ class InwardStockLedgerDetailView
             },
             actions: IconButton(
               onPressed: () async {
-                await generateAndOpenPDF(controller.inwardStockLedgerList);
+                await generateAndOpenInwardStockLedgerPDF(
+                    controller.inwardStockLedgerList);
               },
               icon: const Icon(
                 Icons.file_download_outlined,

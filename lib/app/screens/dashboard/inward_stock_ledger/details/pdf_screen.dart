@@ -8,11 +8,11 @@ import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:path_provider/path_provider.dart';
 
-class LedgerPdfScreen extends StatelessWidget {
+class PdfScreen extends StatelessWidget {
   final Uint8List pdfBytes;
   final String title;
 
-  const LedgerPdfScreen({
+  const PdfScreen({
     super.key,
     required this.pdfBytes,
     required this.title,
@@ -70,7 +70,7 @@ class LedgerPdfScreen extends StatelessWidget {
         autoSpacing: false,
         pageFling: false,
         fitPolicy: FitPolicy.BOTH,
-        swipeHorizontal: true,
+        // swipeHorizontal: true,
       ),
     );
   }

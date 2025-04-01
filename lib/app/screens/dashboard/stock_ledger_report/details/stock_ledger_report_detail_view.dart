@@ -2,6 +2,7 @@ import 'package:cold_storage/app/constants/app_constants.dart';
 import 'package:cold_storage/app/constants/color_constants.dart';
 import 'package:cold_storage/app/screens/dashboard/stock_ledger_report/details/model/stock_ledger_report_res_model.dart';
 import 'package:cold_storage/app/screens/dashboard/stock_ledger_report/details/stock_ledger_report_detail_controller.dart';
+import 'package:cold_storage/app/screens/dashboard/stock_ledger_report/details/stock_ledger_report_pdf.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_bar_widget.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_scaffold.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_spaces.dart';
@@ -32,6 +33,18 @@ class StockLedgerReportDetailView
             onTap: () {
               Get.back();
             },
+            actions: IconButton(
+              onPressed: () async {
+                await generateAndOpenStockLedgerPDF(
+                  controller.stockLedgerReportDataList,
+                );
+              },
+              icon: const Icon(
+                Icons.file_download_outlined,
+                size: 25,
+                color: mColorPrimaryText,
+              ),
+            ),
           ),
           body: Obx(
             () {

@@ -1,5 +1,6 @@
 import 'package:cold_storage/app/constants/app_constants.dart';
 import 'package:cold_storage/app/constants/color_constants.dart';
+import 'package:cold_storage/app/screens/dashboard/stock_summary/details/stock_summary_pdf.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_bar_widget.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_scaffold.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_spaces.dart';
@@ -30,6 +31,18 @@ class StockSummaryDetailView extends GetView<StockSummaryDetailController> {
             onTap: () {
               Get.back();
             },
+            actions: IconButton(
+              onPressed: () async {
+                await generateAndOpenStockSummaryPDF(
+                  controller.stockSummaryDataList,
+                );
+              },
+              icon: const Icon(
+                Icons.file_download_outlined,
+                size: 25,
+                color: mColorPrimaryText,
+              ),
+            ),
           ),
           body: Obx(
             () {
