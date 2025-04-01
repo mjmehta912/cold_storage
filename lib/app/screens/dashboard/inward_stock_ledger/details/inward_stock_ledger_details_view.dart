@@ -1,6 +1,7 @@
 import 'package:cold_storage/app/constants/app_constants.dart';
 import 'package:cold_storage/app/constants/color_constants.dart';
 import 'package:cold_storage/app/screens/dashboard/inward_stock_ledger/details/inward_stock_ledger_detail_controller.dart';
+import 'package:cold_storage/app/screens/dashboard/inward_stock_ledger/details/inward_stock_ledger_pdf.dart';
 import 'package:cold_storage/app/screens/dashboard/inward_stock_ledger/details/model/res/inward_stock_ledger_details_res_model.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_bar_widget.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_scaffold.dart';
@@ -33,7 +34,9 @@ class InwardStockLedgerDetailView
               Get.back();
             },
             actions: IconButton(
-              onPressed: () async {},
+              onPressed: () async {
+                await generateAndOpenPDF(controller.inwardStockLedgerList);
+              },
               icon: const Icon(
                 Icons.file_download_outlined,
                 size: 25,
