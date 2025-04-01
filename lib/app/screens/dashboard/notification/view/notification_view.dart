@@ -1,6 +1,5 @@
 import 'package:cold_storage/app/constants/app_constants.dart';
 import 'package:cold_storage/app/constants/color_constants.dart';
-import 'package:cold_storage/app/constants/image_constants.dart';
 import 'package:cold_storage/app/screens/dashboard/notification/controller/notification_controller.dart';
 import 'package:cold_storage/app/screens/dashboard/notification/model/res/notification_res.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_bar_widget.dart';
@@ -12,7 +11,6 @@ import 'package:cold_storage/app/utils/app_widgets/app_text.dart';
 import 'package:cold_storage/app/utils/app_widgets/no_data_found.dart';
 import 'package:cold_storage/app/utils/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class NotificationView extends GetView<NotificationController> {
@@ -37,8 +35,9 @@ class NotificationView extends GetView<NotificationController> {
             controller.navigateToBack();
           },
           actions: PopupMenuButton(
+            position: PopupMenuPosition.under,
             onSelected: (value) {},
-            color: mColorAppbar,
+            color: mColorBackground,
             elevation: 5,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
@@ -54,22 +53,13 @@ class NotificationView extends GetView<NotificationController> {
                     controller.selectedFilterIndex.value = 0;
                     controller.updateListWithFilterData(kAll);
                   },
-                  child: Obx(() {
-                    return Row(
-                      children: [
-                        controller.selectedFilterIndex.value == 0
-                            ? _fillCircleSvg()
-                            : _emptyCircleSvg(),
-                        AppText(
-                          text: kAll,
-                          style: TextStyles.kPrimaryBoldPublicSans(
-                            fontSize: TextStyles.k22FontSize,
-                            colors: mColorPrimaryText,
-                          ),
-                        ),
-                      ],
-                    );
-                  }),
+                  child: AppText(
+                    text: kAll,
+                    style: TextStyles.kPrimaryMediumPublicSans(
+                      fontSize: TextStyles.k18FontSize,
+                      colors: mColorPrimaryText,
+                    ),
+                  ),
                 ),
                 PopupMenuItem(
                   value: '/$kPending',
@@ -77,22 +67,13 @@ class NotificationView extends GetView<NotificationController> {
                     controller.selectedFilterIndex.value = 1;
                     controller.updateListWithFilterData(kPending);
                   },
-                  child: Obx(() {
-                    return Row(
-                      children: [
-                        controller.selectedFilterIndex.value == 1
-                            ? _fillCircleSvg()
-                            : _emptyCircleSvg(),
-                        AppText(
-                          text: kPending,
-                          style: TextStyles.kPrimaryBoldPublicSans(
-                            fontSize: TextStyles.k22FontSize,
-                            colors: mColorPrimaryText,
-                          ),
-                        ),
-                      ],
-                    );
-                  }),
+                  child: AppText(
+                    text: kPending,
+                    style: TextStyles.kPrimaryMediumPublicSans(
+                      fontSize: TextStyles.k18FontSize,
+                      colors: mColorPrimaryText,
+                    ),
+                  ),
                 ),
                 PopupMenuItem(
                   value: '/$kAccepted',
@@ -100,23 +81,12 @@ class NotificationView extends GetView<NotificationController> {
                     controller.selectedFilterIndex.value = 2;
                     controller.updateListWithFilterData(kAccepted);
                   },
-                  child: Obx(
-                    () {
-                      return Row(
-                        children: [
-                          controller.selectedFilterIndex.value == 2
-                              ? _fillCircleSvg()
-                              : _emptyCircleSvg(),
-                          AppText(
-                            text: kAccepted,
-                            style: TextStyles.kPrimaryBoldPublicSans(
-                              fontSize: TextStyles.k22FontSize,
-                              colors: mColorPrimaryText,
-                            ),
-                          ),
-                        ],
-                      );
-                    },
+                  child: AppText(
+                    text: kAccepted,
+                    style: TextStyles.kPrimaryMediumPublicSans(
+                      fontSize: TextStyles.k18FontSize,
+                      colors: mColorPrimaryText,
+                    ),
                   ),
                 ),
                 PopupMenuItem(
@@ -125,36 +95,58 @@ class NotificationView extends GetView<NotificationController> {
                     controller.selectedFilterIndex.value = 3;
                     controller.updateListWithFilterData(kRejected);
                   },
-                  child: Obx(
-                    () {
-                      return Row(
-                        children: [
-                          controller.selectedFilterIndex.value == 3
-                              ? _fillCircleSvg()
-                              : _emptyCircleSvg(),
-                          AppText(
-                            text: kRejected,
-                            style: TextStyles.kPrimaryBoldPublicSans(
-                              fontSize: TextStyles.k22FontSize,
-                              colors: mColorPrimaryText,
-                            ),
-                          ),
-                        ],
-                      );
-                    },
+                  child: AppText(
+                    text: kRejected,
+                    style: TextStyles.kPrimaryMediumPublicSans(
+                      fontSize: TextStyles.k18FontSize,
+                      colors: mColorPrimaryText,
+                    ),
                   ),
                 ),
               ];
             },
-            child: const Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 15,
-              ),
-              child: Icon(
-                Icons.filter_alt_rounded,
-                size: 25,
-                color: mColorPrimaryText,
-              ),
+            child: Obx(
+              () {
+                /// ✅ Inline logic to get selected filter value
+                String selectedFilter =
+                    controller.selectedFilterIndex.value == 1
+                        ? kPending
+                        : controller.selectedFilterIndex.value == 2
+                            ? kAccepted
+                            : controller.selectedFilterIndex.value == 3
+                                ? kRejected
+                                : kAll;
+
+                return Card(
+                  elevation: 0,
+                  color: mColorAppbar,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    side: const BorderSide(
+                      color: kColorBlack,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(6),
+                    child: Row(
+                      children: [
+                        Text(
+                          selectedFilter,
+                          style: TextStyles.kPrimaryRegularPublicSans(
+                            fontSize: TextStyles.k16FontSize,
+                            colors: mColorPrimaryText,
+                          ),
+                        ),
+                        const Icon(
+                          Icons.arrow_drop_down_rounded,
+                          size: 25,
+                          color: mColorPrimaryText,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ),
@@ -198,33 +190,26 @@ class NotificationView extends GetView<NotificationController> {
                   child: Padding(
                     padding: const EdgeInsets.all(15),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: 0.55.screenWidth,
-                              child: Text(
-                                '${data.userName ?? ''} $kHasChangedDevice',
-                                style: TextStyles.kPrimarySemiBoldPublicSans()
-                                    .copyWith(
-                                  color: mColorPrimaryText,
-                                  fontSize: TextStyles.k18FontSize,
-                                  height: 1.25,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              controller.returnStatusText(
-                                data.status ?? 0,
-                              ),
-                              style: TextStyles.kPrimarySemiBoldPublicSans()
-                                  .copyWith(
-                                color: controller.returnStatusColor(data),
-                                fontSize: TextStyles.k18FontSize,
-                              ),
-                            )
-                          ],
+                        Text(
+                          '${data.userName ?? ''} $kHasChangedDevice',
+                          style:
+                              TextStyles.kPrimarySemiBoldPublicSans().copyWith(
+                            color: mColorPrimaryText,
+                            fontSize: TextStyles.k18FontSize,
+                            height: 1.25,
+                          ),
+                        ),
+                        Text(
+                          controller.returnStatusText(
+                            data.status ?? 0,
+                          ),
+                          style:
+                              TextStyles.kPrimarySemiBoldPublicSans().copyWith(
+                            color: controller.returnStatusColor(data),
+                            fontSize: TextStyles.k18FontSize,
+                          ),
                         ),
                         AppSpaces.v4,
                         CustomNotificationRow(
@@ -301,40 +286,6 @@ class NotificationView extends GetView<NotificationController> {
           },
         ),
       ],
-    );
-  }
-
-  _fillCircleSvg() {
-    return Padding(
-      padding: const EdgeInsets.only(
-        right: 10,
-      ),
-      child: SvgPicture.asset(
-        kIconFillCircle,
-        height: 20,
-        width: 20,
-        colorFilter: const ColorFilter.mode(
-          mColorPrimaryText,
-          BlendMode.srcIn,
-        ),
-      ),
-    );
-  }
-
-  _emptyCircleSvg() {
-    return Padding(
-      padding: const EdgeInsets.only(
-        right: 10,
-      ),
-      child: SvgPicture.asset(
-        kIconEmptyCircle,
-        height: 20,
-        width: 20,
-        colorFilter: const ColorFilter.mode(
-          mColorPrimaryText,
-          BlendMode.srcIn,
-        ),
-      ),
     );
   }
 }

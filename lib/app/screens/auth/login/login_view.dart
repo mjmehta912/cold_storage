@@ -48,6 +48,7 @@ class LoginView extends GetView<LoginController> {
         return false;
       },
       child: AppScaffold(
+        resizeToAvoidBottomInset: true,
         bgColor: mColorAppbar,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,6 +131,7 @@ class LoginView extends GetView<LoginController> {
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24,
+                  vertical: 36,
                 ),
                 decoration: const BoxDecoration(
                   color: mColorBackground,
@@ -140,115 +142,118 @@ class LoginView extends GetView<LoginController> {
                 ),
                 child: Form(
                   key: controller.formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText(
-                        text: 'Welcome Back!',
-                        style: TextStyles.kPrimarySemiBoldPublicSans(
-                          colors: mColorPrimaryText,
-                          fontSize: TextStyles.k30FontSize,
-                        ),
-                      ),
-                      AppSpaces.v20,
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                left: 12,
-                              ),
-                              child: AppText(
-                                text: '$kMobileNo.',
-                                style: TextStyles.kPrimarySemiBoldPublicSans(
-                                  fontSize: TextStyles.k18FontSize,
-                                  colors: mColorPrimaryText,
-                                ),
-                              ),
-                            ),
-                            AppSpaces.v4,
-                            AppTextField(
-                              controller: controller.mobileController,
-                              textInputType: TextInputType.phone,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.digitsOnly,
-                              ],
-                              maxLength: 10,
-                              validator: (v) {
-                                return Validate.phoneValidation(
-                                    context, v ?? '');
-                              },
-                            ),
-                            AppSpaces.v8,
-                            Padding(
-                              padding: const EdgeInsets.only(left: 12),
-                              child: AppText(
-                                text: kPassword,
-                                style: TextStyles.kPrimarySemiBoldPublicSans(
-                                  fontSize: TextStyles.k18FontSize,
-                                  colors: mColorPrimaryText,
-                                ),
-                              ),
-                            ),
-                            AppSpaces.v4,
-                            Obx(
-                              () {
-                                return AppTextField(
-                                  controller: controller.passwordController,
-                                  obscureText:
-                                      !controller.visiblePassword.value,
-                                  validator: (v) {
-                                    return Validate.passwordValidation(
-                                        context, v ?? '');
-                                  },
-                                  suffix: GestureDetector(
-                                    onTap: () {
-                                      controller.visiblePassword.value =
-                                          !controller.visiblePassword.value;
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 16,
-                                      ),
-                                      child: Icon(
-                                        controller.visiblePassword.value
-                                            ? Icons.visibility_off
-                                            : Icons.visibility,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      AppSpaces.v36,
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 30,
-                        ),
-                        child: Obx(
-                          () => appButton(
-                            buttonColor: buttonColors[activeIndex.value],
-                            onPressed: () {
-                              if (controller.formKey.currentState!.validate()) {
-                                FocusManager.instance.primaryFocus?.unfocus();
-                                controller.loginApiCall();
-                              }
-                            },
-                            buttonText: kLogin,
-                            textColor: buttonTextColors[activeIndex.value],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AppText(
+                          text: 'Welcome Back!',
+                          style: TextStyles.kPrimarySemiBoldPublicSans(
+                            colors: mColorPrimaryText,
+                            fontSize: TextStyles.k30FontSize,
                           ),
                         ),
-                      ),
-                      AppSpaces.v8,
-                    ],
+                        AppSpaces.v20,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 12,
+                                ),
+                                child: AppText(
+                                  text: '$kMobileNo.',
+                                  style: TextStyles.kPrimarySemiBoldPublicSans(
+                                    fontSize: TextStyles.k18FontSize,
+                                    colors: mColorPrimaryText,
+                                  ),
+                                ),
+                              ),
+                              AppSpaces.v4,
+                              AppTextField(
+                                controller: controller.mobileController,
+                                textInputType: TextInputType.phone,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                ],
+                                maxLength: 10,
+                                validator: (v) {
+                                  return Validate.phoneValidation(
+                                      context, v ?? '');
+                                },
+                              ),
+                              AppSpaces.v8,
+                              Padding(
+                                padding: const EdgeInsets.only(left: 12),
+                                child: AppText(
+                                  text: kPassword,
+                                  style: TextStyles.kPrimarySemiBoldPublicSans(
+                                    fontSize: TextStyles.k18FontSize,
+                                    colors: mColorPrimaryText,
+                                  ),
+                                ),
+                              ),
+                              AppSpaces.v4,
+                              Obx(
+                                () {
+                                  return AppTextField(
+                                    controller: controller.passwordController,
+                                    obscureText:
+                                        !controller.visiblePassword.value,
+                                    validator: (v) {
+                                      return Validate.passwordValidation(
+                                          context, v ?? '');
+                                    },
+                                    suffix: GestureDetector(
+                                      onTap: () {
+                                        controller.visiblePassword.value =
+                                            !controller.visiblePassword.value;
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 16,
+                                        ),
+                                        child: Icon(
+                                          controller.visiblePassword.value
+                                              ? Icons.visibility_off
+                                              : Icons.visibility,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        AppSpaces.v36,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 30,
+                          ),
+                          child: Obx(
+                            () => appButton(
+                              buttonColor: buttonColors[activeIndex.value],
+                              onPressed: () {
+                                if (controller.formKey.currentState!
+                                    .validate()) {
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                  controller.loginApiCall();
+                                }
+                              },
+                              buttonText: kLogin,
+                              textColor: buttonTextColors[activeIndex.value],
+                            ),
+                          ),
+                        ),
+                        AppSpaces.v8,
+                      ],
+                    ),
                   ),
                 ),
               ),

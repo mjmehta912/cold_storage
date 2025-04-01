@@ -49,6 +49,7 @@ class InwardStockLedgerDetailController extends GetxController {
           res.data ?? [],
         );
       }
+
       isDataLoading.value = false;
     } catch (e) {
       isDataLoading.value = false;

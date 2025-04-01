@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cold_storage/app/constants/local_storage_constants.dart';
 import 'package:cold_storage/app/constants/route_constants.dart';
@@ -66,12 +67,16 @@ class LoginController extends GetxController {
   void loginApiCall() async {
     try {
       String deviceId = await getId() ?? '';
-      String fcmToken = await firebaseServices.getFCMToken();
+
+      // Include FCM token only for Android
+      String fcmToken =
+          Platform.isAndroid ? await firebaseServices.getFCMToken() : '';
 
       Get.find<LocalStorage>().writeStringStorage(
         kStorageDeviceId,
         deviceId,
       );
+
       LoginRequestModel requestModel = LoginRequestModel(
         mobileNo: mobileController.text.trim(),
         password: passwordController.text.trim(),
@@ -79,6 +84,7 @@ class LoginController extends GetxController {
         fcmToken: fcmToken,
         version: '',
       );
+
       var res = await Get.find<AuthRepo>().loginApiCall(
         requestModel: requestModel,
       );

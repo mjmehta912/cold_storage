@@ -32,6 +32,14 @@ class InwardStockLedgerDetailView
             onTap: () {
               Get.back();
             },
+            actions: IconButton(
+              onPressed: () async {},
+              icon: const Icon(
+                Icons.file_download_outlined,
+                size: 25,
+                color: mColorPrimaryText,
+              ),
+            ),
           ),
           body: Obx(
             () {

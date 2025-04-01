@@ -20,55 +20,62 @@ enum Status { Accept, Pending, Reject }
 class OutwardDetailsBaseController extends GetxController {
   TextEditingController remarkController = TextEditingController();
 
-  RxBool isViewRequest = false.obs;
-  RxList<OutwardDetailsData> outwardDetailsList =
-      List<OutwardDetailsData>.empty(
-    growable: true,
-  ).obs;
-
+  RxList<OutwardDetailsData> outwardDetailsList = <OutwardDetailsData>[].obs;
   RxList<OutwardDetailsData> filterOutwardDetailsList =
-      List<OutwardDetailsData>.empty(
-    growable: true,
-  ).obs;
+      <OutwardDetailsData>[].obs;
+  RxList<RxBool> expandedList = <RxBool>[].obs; // Track expansion states
 
+  RxBool isViewRequest = false.obs;
   RxInt selectedFilterIndex = 0.obs;
   RxBool isDataLoading = true.obs;
 
   @override
   void onInit() {
-    Get.lazyPut(
-      () => OutwardRepo(),
-      fenix: true,
-    );
+    Get.lazyPut(() => OutwardRepo(), fenix: true);
     setIntentData();
+
+    // Ensure expansion states update when filtered list changes
+    ever(filterOutwardDetailsList, (_) => initializeExpansionStates());
+
     super.onInit();
   }
 
-  setIntentData() {
-    try {
-      isViewRequest.value = Get.arguments as bool;
-      WidgetsBinding.instance.addPostFrameCallback(
-        (timeStamp) async {
-          await getOutwardDetailsFromApiCall();
-        },
-      );
-    } catch (e) {
-      LoggerUtils.logException(
-        'setIntentData',
-        e,
-      );
+  /// ✅ Initialize Expansion List (Keeps it in sync with `filterOutwardDetailsList`)
+  void initializeExpansionStates() {
+    expandedList.value =
+        List.generate(filterOutwardDetailsList.length, (_) => false.obs);
+  }
+
+  /// ✅ Toggle Expansion for a Specific Card
+  void toggleExpansion(int index) {
+    if (index < expandedList.length) {
+      expandedList[index].value = !expandedList[index].value;
     }
   }
 
-  getOutwardDetailsFromApiCall() async {
+  /// ✅ Set Initial Data
+  void setIntentData() {
+    try {
+      isViewRequest.value = Get.arguments as bool;
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await getOutwardDetailsFromApiCall();
+      });
+    } catch (e) {
+      LoggerUtils.logException('setIntentData', e);
+    }
+  }
+
+  /// ✅ Fetch Data from API
+  Future<void> getOutwardDetailsFromApiCall() async {
     try {
       isDataLoading.value = true;
       outwardDetailsList.clear();
       filterOutwardDetailsList.clear();
+
       int userId =
           await Get.find<LocalStorage>().getIntFromStorage(kStorageUserID);
-
       String deviceID = await GeneralServices.getDeviceID();
+
       GeneralReqModel reqModel = GeneralReqModel(
         database: AppConst.companyData.value.dbName ?? '',
         cocode: AppConst.companyData.value.coCode ?? 0,
@@ -77,24 +84,23 @@ class OutwardDetailsBaseController extends GetxController {
         deviceID: deviceID,
       );
 
-      var res = await Get.find<OutwardRepo>().getOutwardDetailsFromServer(
-        reqModel: reqModel,
-      );
+      var res = await Get.find<OutwardRepo>()
+          .getOutwardDetailsFromServer(reqModel: reqModel);
       if (res != null) {
         outwardDetailsList.addAll(res.data ?? []);
         filterOutwardDetailsList.addAll(res.data ?? []);
       }
+
+      initializeExpansionStates(); // ✅ Initialize expansion states
       isDataLoading.value = false;
     } catch (e) {
       isDataLoading.value = false;
-      LoggerUtils.logException(
-        'getOutwardDetailsFromApiCall',
-        e,
-      );
+      LoggerUtils.logException('getOutwardDetailsFromApiCall', e);
     }
   }
 
-  returnStatusColor(OutwardDetailsData data) {
+  /// ✅ Return Status Color
+  Color returnStatusColor(OutwardDetailsData data) {
     if (data.status == 'Accept' || data.status == 'Accepted') {
       return kColorGreen;
     } else if (data.status == 'Pending') {
@@ -104,51 +110,37 @@ class OutwardDetailsBaseController extends GetxController {
     }
   }
 
+  /// ✅ Filter Data
   void updateListWithFilterData(String filterStr) {
+    filterOutwardDetailsList.clear();
+
     if (filterStr == kPending) {
-      filterOutwardDetailsList.clear();
-      for (var element in outwardDetailsList) {
-        if (element.status == 'Pending') {
-          filterOutwardDetailsList.add(element);
-        }
-      }
-      filterOutwardDetailsList.refresh();
+      filterOutwardDetailsList
+          .assignAll(outwardDetailsList.where((e) => e.status == 'Pending'));
     } else if (filterStr == kAccepted) {
-      filterOutwardDetailsList.clear();
-      for (var element in outwardDetailsList) {
-        if (element.status == 'Accept' || element.status == 'Accepted') {
-          filterOutwardDetailsList.add(element);
-        }
-      }
-      filterOutwardDetailsList.refresh();
+      filterOutwardDetailsList.assignAll(outwardDetailsList
+          .where((e) => e.status == 'Accept' || e.status == 'Accepted'));
     } else if (filterStr == kRejected) {
-      filterOutwardDetailsList.clear();
-      for (var element in outwardDetailsList) {
-        if (element.status?.split('(').first == 'Reject' ||
-            element.status?.split('(').first == 'Rejected') {
-          filterOutwardDetailsList.add(element);
-        }
-      }
-      filterOutwardDetailsList.refresh();
+      filterOutwardDetailsList.assignAll(outwardDetailsList.where((e) =>
+          e.status?.split('(').first == 'Reject' ||
+          e.status?.split('(').first == 'Rejected'));
     } else {
-      filterOutwardDetailsList.clear();
-      filterOutwardDetailsList.addAll(outwardDetailsList);
-      filterOutwardDetailsList.refresh();
+      filterOutwardDetailsList.assignAll(outwardDetailsList);
     }
+
+    initializeExpansionStates(); // ✅ Ensure expansion states match filtered list
   }
 
-  void rejectReqApiCall(OutwardDetailsData data, int dataStatusCode) async {
+  /// ✅ Handle Reject Request
+  Future<void> rejectReqApiCall(
+      OutwardDetailsData data, int dataStatusCode) async {
     try {
       String dateString = data.date ?? '';
       DateFormat format = DateFormat("dd-MM-yyyy");
       DateTime dateTime = format.parse(dateString);
 
-      // int status = returnStatusFromString(data);
-      int status = dataStatusCode;
-
       int userId =
           await Get.find<LocalStorage>().getIntFromStorage(kStorageUserID);
-
       String deviceID = await GeneralServices.getDeviceID();
 
       AuthorizedReqModel reqModel = AuthorizedReqModel(
@@ -159,11 +151,12 @@ class OutwardDetailsBaseController extends GetxController {
             DateFormat("dd-MM-yyyy").parse(data.entryDate ?? '').dateForDB,
         remarks: remarkController.text.trim(),
         invNo: data.invno ?? '',
-        status: status,
+        status: dataStatusCode,
         id: data.id,
         userID: userId,
         deviceID: deviceID,
       );
+
       var res = await Get.find<OutwardRepo>()
           .authReqForOutwardDetailsApiCall(reqModel: reqModel);
 
@@ -171,13 +164,14 @@ class OutwardDetailsBaseController extends GetxController {
         remarkController.clear();
         Get.find<AlertMessageUtils>()
             .showSuccessSnackBar1(Get.context!, res.message ?? '');
-        getOutwardDetailsFromApiCall();
+        getOutwardDetailsFromApiCall(); // ✅ Refresh Data After Update
       }
     } catch (e) {
       LoggerUtils.logException('rejectReqApiCall', e);
     }
   }
 
+  /// ✅ Convert Status to Integer Code
   int returnStatusFromString(OutwardDetailsData data) {
     if (data.status == Status.Accept.name) {
       return 1;
