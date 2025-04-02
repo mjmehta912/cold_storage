@@ -6,6 +6,7 @@ class LoggerUtils {
     printer: PrettyPrinter(
       colors: true,
       printEmojis: true,
+      // ignore: deprecated_member_use
       printTime: false,
     ),
   );

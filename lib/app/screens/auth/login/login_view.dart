@@ -42,6 +42,7 @@ class LoginView extends GetView<LoginController> {
       mColorCard6Secondary,
     ];
 
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async {
         SystemNavigator.pop();

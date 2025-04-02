@@ -53,6 +53,7 @@ Future<void> generateAndOpenAccountLedgerPDF(
 
         // Table Headers
         content.add(
+          // ignore: deprecated_member_use
           pw.Table.fromTextArray(
             headers: [
               'Date',

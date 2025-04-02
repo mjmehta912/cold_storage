@@ -75,9 +75,11 @@ class AlertMessageUtils {
     try {
       showDialog(
         context: Get.overlayContext!,
+        // ignore: deprecated_member_use
         builder: (_) => WillPopScope(
           child: Container(
             decoration: BoxDecoration(
+              // ignore: deprecated_member_use
               color: kColorWhite.withOpacity(0.5),
             ),
             child: const AppLoadingIndicator(),

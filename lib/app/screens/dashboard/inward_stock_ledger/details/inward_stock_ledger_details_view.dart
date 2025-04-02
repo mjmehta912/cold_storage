@@ -1,6 +1,7 @@
 import 'package:cold_storage/app/constants/app_constants.dart';
 import 'package:cold_storage/app/constants/color_constants.dart';
 import 'package:cold_storage/app/screens/dashboard/inward_stock_ledger/details/inward_stock_ledger_detail_controller.dart';
+import 'package:cold_storage/app/screens/dashboard/inward_stock_ledger/details/inward_stock_ledger_excel.dart';
 import 'package:cold_storage/app/screens/dashboard/inward_stock_ledger/details/inward_stock_ledger_pdf.dart';
 import 'package:cold_storage/app/screens/dashboard/inward_stock_ledger/details/model/res/inward_stock_ledger_details_res_model.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_bar_widget.dart';
@@ -33,16 +34,32 @@ class InwardStockLedgerDetailView
             onTap: () {
               Get.back();
             },
-            actions: IconButton(
-              onPressed: () async {
-                await generateAndOpenInwardStockLedgerPDF(
-                    controller.inwardStockLedgerList);
-              },
-              icon: const Icon(
-                Icons.file_download_outlined,
-                size: 25,
-                color: mColorPrimaryText,
-              ),
+            actions: Row(
+              children: [
+                IconButton(
+                  onPressed: () async {
+                    await generateAndOpenInwardStockLedgerPDF(
+                        controller.inwardStockLedgerList);
+                  },
+                  icon: const Icon(
+                    Icons.file_download_outlined,
+                    size: 25,
+                    color: mColorPrimaryText,
+                  ),
+                ),
+                AppSpaces.h10,
+                IconButton(
+                  onPressed: () async {
+                    await generateAndOpenInwardStockLedgerExcel(
+                        controller.inwardStockLedgerList);
+                  },
+                  icon: const Icon(
+                    Icons.downloading_sharp,
+                    size: 25,
+                    color: mColorPrimaryText,
+                  ),
+                ),
+              ],
             ),
           ),
           body: Obx(
