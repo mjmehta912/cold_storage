@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-AccountLedgerDetailResModel accountLedgerDetailResModelFromJson(String str) => AccountLedgerDetailResModel.fromJson(json.decode(str));
+AccountLedgerDetailResModel accountLedgerDetailResModelFromJson(String str) =>
+    AccountLedgerDetailResModel.fromJson(json.decode(str));
 
-String accountLedgerDetailResModelToJson(AccountLedgerDetailResModel data) => json.encode(data.toJson());
+String accountLedgerDetailResModelToJson(AccountLedgerDetailResModel data) =>
+    json.encode(data.toJson());
 
 class AccountLedgerDetailResModel {
   bool? success;
@@ -27,25 +29,29 @@ class AccountLedgerDetailResModel {
     this.data,
   });
 
-  factory AccountLedgerDetailResModel.fromJson(Map<String, dynamic> json) => AccountLedgerDetailResModel(
-    success: json["success"],
-    message: json["message"],
-    opening: json["opening"],
-    closing: json["closing"],
-    debit: json["debit"],
-    credit: json["credit"],
-    data: json["data"]==null?[]:List<AccountLedgerData>.from(json["data"].map((x) => AccountLedgerData.fromJson(x))),
-  );
+  factory AccountLedgerDetailResModel.fromJson(Map<String, dynamic> json) =>
+      AccountLedgerDetailResModel(
+        success: json["success"],
+        message: json["message"],
+        opening: json["opening"],
+        closing: json["closing"],
+        debit: json["debit"],
+        credit: json["credit"],
+        data: json["data"] == null
+            ? []
+            : List<AccountLedgerData>.from(
+                json["data"].map((x) => AccountLedgerData.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "message": message,
-    "opening": opening,
-    "closing": closing,
-    "debit": debit,
-    "credit": credit,
-    "data": List<dynamic>.from((data??[]).map((x) => x.toJson())),
-  };
+        "success": success,
+        "message": message,
+        "opening": opening,
+        "closing": closing,
+        "debit": debit,
+        "credit": credit,
+        "data": List<dynamic>.from((data ?? []).map((x) => x.toJson())),
+      };
 }
 
 class AccountLedgerData {
@@ -73,29 +79,30 @@ class AccountLedgerData {
     this.yearid,
   });
 
-  factory AccountLedgerData.fromJson(Map<String, dynamic> json) => AccountLedgerData(
-    date: json["DATE"],
-    docno: json["DOCNO"],
-    narration: json["NARRATION"],
-    book: json["BOOK"],
-    debit: json["DEBIT"],
-    credit: json["CREDIT"],
-    balance: json["BALANCE"],
-    nt: json["NT"],
-    bookcode: json["BOOKCODE"],
-    yearid: json["YEARID"],
-  );
+  factory AccountLedgerData.fromJson(Map<String, dynamic> json) =>
+      AccountLedgerData(
+        date: json["DATE"],
+        docno: json["DOCNO"],
+        narration: json["NARRATION"],
+        book: json["BOOK"],
+        debit: json["DEBIT"],
+        credit: json["CREDIT"],
+        balance: json["BALANCE"],
+        nt: json["NT"],
+        bookcode: json["BOOKCODE"],
+        yearid: json["YEARID"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "DATE": date,
-    "DOCNO": docno,
-    "NARRATION": narration,
-    "BOOK": book,
-    "DEBIT": debit,
-    "CREDIT": credit,
-    "BALANCE": balance,
-    "NT": nt,
-    "BOOKCODE": bookcode,
-    "YEARID": yearid,
-  };
+        "DATE": date,
+        "DOCNO": docno,
+        "NARRATION": narration,
+        "BOOK": book,
+        "DEBIT": debit,
+        "CREDIT": credit,
+        "BALANCE": balance,
+        "NT": nt,
+        "BOOKCODE": bookcode,
+        "YEARID": yearid,
+      };
 }

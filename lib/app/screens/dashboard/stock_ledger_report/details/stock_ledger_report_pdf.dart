@@ -85,6 +85,7 @@ Future<void> generateAndOpenStockLedgerPDF(
             }
 
             content.add(
+              // ignore: deprecated_member_use
               pw.Table.fromTextArray(
                 headers: [
                   'I/W No.',
