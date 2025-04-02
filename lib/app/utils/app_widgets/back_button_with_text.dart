@@ -28,7 +28,7 @@ backButtonWithText(
       AppText(
         text: text ?? '',
         style: TextStyles.kPrimarySemiBoldPublicSans(
-          fontSize: fontSize ?? TextStyles.k22FontSize,
+          fontSize: fontSize ?? TextStyles.k18FontSize,
           colors: mColorPrimaryText,
         ),
       ),

@@ -11,6 +11,7 @@ import 'package:cold_storage/app/utils/app_widgets/no_data_found.dart';
 import 'package:cold_storage/app/utils/app_widgets/show_loader_text.dart';
 import 'package:cold_storage/app/utils/general/general_utils.dart';
 import 'package:cold_storage/app/utils/stock_widgets/stock_widget.dart';
+import 'package:cold_storage/app/utils/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -36,29 +37,36 @@ class InwardStockLedgerDetailView
             },
             actions: Row(
               children: [
-                IconButton(
-                  onPressed: () async {
+                InkWell(
+                  onTap: () async {
                     await generateAndOpenInwardStockLedgerPDF(
-                        controller.inwardStockLedgerList);
+                      controller.inwardStockLedgerList,
+                    );
                   },
-                  icon: const Icon(
-                    Icons.file_download_outlined,
-                    size: 25,
-                    color: mColorPrimaryText,
+                  child: Text(
+                    'PDF',
+                    style: TextStyles.kPrimaryMediumPublicSans(
+                      colors: mColorPrimaryText,
+                      fontSize: TextStyles.k16FontSize,
+                    ),
                   ),
                 ),
                 AppSpaces.h10,
-                IconButton(
-                  onPressed: () async {
+                InkWell(
+                  onTap: () async {
                     await generateAndOpenInwardStockLedgerExcel(
-                        controller.inwardStockLedgerList);
+                      controller.inwardStockLedgerList,
+                    );
                   },
-                  icon: const Icon(
-                    Icons.downloading_sharp,
-                    size: 25,
-                    color: mColorPrimaryText,
+                  child: Text(
+                    'XLS',
+                    style: TextStyles.kPrimaryMediumPublicSans(
+                      colors: mColorPrimaryText,
+                      fontSize: TextStyles.k16FontSize,
+                    ),
                   ),
                 ),
+                AppSpaces.h10,
               ],
             ),
           ),
