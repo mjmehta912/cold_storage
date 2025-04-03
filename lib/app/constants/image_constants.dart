@@ -33,3 +33,6 @@ const String mIconStockLedger = 'assets/icons/stock_ledger.png';
 const String mIconAccountLedger = 'assets/icons/account_ledger.png';
 const String mIconOutwardRequests = 'assets/icons/outward_request.png';
 const String mIconViewRequests = 'assets/icons/view_requests.png';
+
+const String kIconExcel = 'assets/icons/excel.svg';
+const String kIconPdf = 'assets/icons/pdf.svg';

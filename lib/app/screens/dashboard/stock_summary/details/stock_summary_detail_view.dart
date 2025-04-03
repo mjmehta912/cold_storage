@@ -1,5 +1,6 @@
 import 'package:cold_storage/app/constants/app_constants.dart';
 import 'package:cold_storage/app/constants/color_constants.dart';
+import 'package:cold_storage/app/constants/image_constants.dart';
 import 'package:cold_storage/app/screens/dashboard/stock_summary/details/stock_summary_excel.dart';
 import 'package:cold_storage/app/screens/dashboard/stock_summary/details/stock_summary_pdf.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_bar_widget.dart';
@@ -8,8 +9,8 @@ import 'package:cold_storage/app/utils/app_widgets/app_spaces.dart';
 import 'package:cold_storage/app/utils/app_widgets/no_data_found.dart';
 import 'package:cold_storage/app/utils/app_widgets/show_loader_text.dart';
 import 'package:cold_storage/app/utils/stock_widgets/stock_widget.dart';
-import 'package:cold_storage/app/utils/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import 'stock_summary_detail_controller.dart';
@@ -41,12 +42,10 @@ class StockSummaryDetailView extends GetView<StockSummaryDetailController> {
                       controller.stockSummaryDataList,
                     );
                   },
-                  child: Text(
-                    'PDF',
-                    style: TextStyles.kPrimaryMediumPublicSans(
-                      colors: mColorPrimaryText,
-                      fontSize: TextStyles.k16FontSize,
-                    ),
+                  child: SvgPicture.asset(
+                    kIconPdf,
+                    height: 25,
+                    width: 25,
                   ),
                 ),
                 AppSpaces.h10,
@@ -56,12 +55,10 @@ class StockSummaryDetailView extends GetView<StockSummaryDetailController> {
                       controller.stockSummaryDataList,
                     );
                   },
-                  child: Text(
-                    'XLS',
-                    style: TextStyles.kPrimaryMediumPublicSans(
-                      colors: mColorPrimaryText,
-                      fontSize: TextStyles.k16FontSize,
-                    ),
+                  child: SvgPicture.asset(
+                    kIconExcel,
+                    height: 25,
+                    width: 25,
                   ),
                 ),
                 AppSpaces.h10,
