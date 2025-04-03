@@ -1,6 +1,7 @@
 import 'package:cold_storage/app/constants/app_constants.dart';
 import 'package:cold_storage/app/constants/color_constants.dart';
 import 'package:cold_storage/app/screens/dashboard/accout_ledger_report/details/account_ledger_report_detail_controller.dart';
+import 'package:cold_storage/app/screens/dashboard/accout_ledger_report/details/account_ledger_report_excel.dart';
 import 'package:cold_storage/app/screens/dashboard/accout_ledger_report/details/account_ledger_report_pdf.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_bar_widget.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_scaffold.dart';
@@ -33,16 +34,39 @@ class AccountLedgerReportDetailView
             onTap: () {
               Get.back();
             },
-            actions: IconButton(
-              onPressed: () async {
-                await generateAndOpenAccountLedgerPDF(
-                    controller.accountDetails.value);
-              },
-              icon: const Icon(
-                Icons.file_download_outlined,
-                size: 25,
-                color: mColorPrimaryText,
-              ),
+            actions: Row(
+              children: [
+                InkWell(
+                  onTap: () async {
+                    await generateAndOpenAccountLedgerPDF(
+                      controller.accountDetails.value,
+                    );
+                  },
+                  child: Text(
+                    'PDF',
+                    style: TextStyles.kPrimaryMediumPublicSans(
+                      colors: mColorPrimaryText,
+                      fontSize: TextStyles.k16FontSize,
+                    ),
+                  ),
+                ),
+                AppSpaces.h10,
+                InkWell(
+                  onTap: () async {
+                    await generateAndOpenAccountLedgerExcel(
+                      controller.accountDetails.value,
+                    );
+                  },
+                  child: Text(
+                    'XLS',
+                    style: TextStyles.kPrimaryMediumPublicSans(
+                      colors: mColorPrimaryText,
+                      fontSize: TextStyles.k16FontSize,
+                    ),
+                  ),
+                ),
+                AppSpaces.h10,
+              ],
             ),
           ),
           body: Obx(

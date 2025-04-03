@@ -1,5 +1,6 @@
 import 'package:cold_storage/app/constants/app_constants.dart';
 import 'package:cold_storage/app/constants/color_constants.dart';
+import 'package:cold_storage/app/screens/dashboard/stock_summary/details/stock_summary_excel.dart';
 import 'package:cold_storage/app/screens/dashboard/stock_summary/details/stock_summary_pdf.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_bar_widget.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_scaffold.dart';
@@ -7,6 +8,7 @@ import 'package:cold_storage/app/utils/app_widgets/app_spaces.dart';
 import 'package:cold_storage/app/utils/app_widgets/no_data_found.dart';
 import 'package:cold_storage/app/utils/app_widgets/show_loader_text.dart';
 import 'package:cold_storage/app/utils/stock_widgets/stock_widget.dart';
+import 'package:cold_storage/app/utils/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,17 +33,39 @@ class StockSummaryDetailView extends GetView<StockSummaryDetailController> {
             onTap: () {
               Get.back();
             },
-            actions: IconButton(
-              onPressed: () async {
-                await generateAndOpenStockSummaryPDF(
-                  controller.stockSummaryDataList,
-                );
-              },
-              icon: const Icon(
-                Icons.file_download_outlined,
-                size: 25,
-                color: mColorPrimaryText,
-              ),
+            actions: Row(
+              children: [
+                InkWell(
+                  onTap: () async {
+                    await generateAndOpenStockSummaryPDF(
+                      controller.stockSummaryDataList,
+                    );
+                  },
+                  child: Text(
+                    'PDF',
+                    style: TextStyles.kPrimaryMediumPublicSans(
+                      colors: mColorPrimaryText,
+                      fontSize: TextStyles.k16FontSize,
+                    ),
+                  ),
+                ),
+                AppSpaces.h10,
+                InkWell(
+                  onTap: () async {
+                    await generateAndOpenStockSummaryExcel(
+                      controller.stockSummaryDataList,
+                    );
+                  },
+                  child: Text(
+                    'XLS',
+                    style: TextStyles.kPrimaryMediumPublicSans(
+                      colors: mColorPrimaryText,
+                      fontSize: TextStyles.k16FontSize,
+                    ),
+                  ),
+                ),
+                AppSpaces.h10,
+              ],
             ),
           ),
           body: Obx(

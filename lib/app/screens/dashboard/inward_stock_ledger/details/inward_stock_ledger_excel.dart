@@ -39,6 +39,7 @@ Future<void> generateAndOpenInwardStockLedgerExcel(
       companyCell.cellStyle = CellStyle(
         bold: true,
         fontSize: 14,
+        backgroundColorHex: ExcelColor.fromHexString('#BBB2CC'),
       );
 
       sheet.merge(

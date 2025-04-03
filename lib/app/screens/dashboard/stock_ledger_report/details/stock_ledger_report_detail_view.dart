@@ -2,6 +2,7 @@ import 'package:cold_storage/app/constants/app_constants.dart';
 import 'package:cold_storage/app/constants/color_constants.dart';
 import 'package:cold_storage/app/screens/dashboard/stock_ledger_report/details/model/stock_ledger_report_res_model.dart';
 import 'package:cold_storage/app/screens/dashboard/stock_ledger_report/details/stock_ledger_report_detail_controller.dart';
+import 'package:cold_storage/app/screens/dashboard/stock_ledger_report/details/stock_ledger_report_excel.dart';
 import 'package:cold_storage/app/screens/dashboard/stock_ledger_report/details/stock_ledger_report_pdf.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_bar_widget.dart';
 import 'package:cold_storage/app/utils/app_widgets/app_scaffold.dart';
@@ -10,6 +11,7 @@ import 'package:cold_storage/app/utils/app_widgets/no_data_found.dart';
 import 'package:cold_storage/app/utils/app_widgets/show_loader_text.dart';
 import 'package:cold_storage/app/utils/general/general_utils.dart';
 import 'package:cold_storage/app/utils/stock_widgets/stock_widget.dart';
+import 'package:cold_storage/app/utils/text_styles/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,17 +35,39 @@ class StockLedgerReportDetailView
             onTap: () {
               Get.back();
             },
-            actions: IconButton(
-              onPressed: () async {
-                await generateAndOpenStockLedgerPDF(
-                  controller.stockLedgerReportDataList,
-                );
-              },
-              icon: const Icon(
-                Icons.file_download_outlined,
-                size: 25,
-                color: mColorPrimaryText,
-              ),
+            actions: Row(
+              children: [
+                InkWell(
+                  onTap: () async {
+                    await generateAndOpenStockLedgerPDF(
+                      controller.stockLedgerReportDataList,
+                    );
+                  },
+                  child: Text(
+                    'PDF',
+                    style: TextStyles.kPrimaryMediumPublicSans(
+                      colors: mColorPrimaryText,
+                      fontSize: TextStyles.k16FontSize,
+                    ),
+                  ),
+                ),
+                AppSpaces.h10,
+                InkWell(
+                  onTap: () async {
+                    await generateAndOpenStockLedgerExcel(
+                      controller.stockLedgerReportDataList,
+                    );
+                  },
+                  child: Text(
+                    'XLS',
+                    style: TextStyles.kPrimaryMediumPublicSans(
+                      colors: mColorPrimaryText,
+                      fontSize: TextStyles.k16FontSize,
+                    ),
+                  ),
+                ),
+                AppSpaces.h10,
+              ],
             ),
           ),
           body: Obx(
